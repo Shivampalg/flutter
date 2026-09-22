@@ -332,7 +332,7 @@ class TextSelectionOverlay {
   ///
   /// The [context] must have an [Overlay] as an ancestor.
   TextSelectionOverlay({
-    required TextEditingValue value,
+    required this._value,
     required this.context,
     Widget? debugRequiredFor,
     required LayerLink toolbarLayerLink,
@@ -340,15 +340,14 @@ class TextSelectionOverlay {
     required LayerLink endHandleLayerLink,
     required this.renderObject,
     this.selectionControls,
-    bool handlesVisible = false,
+    this._handlesVisible = false,
     required this.selectionDelegate,
     DragStartBehavior dragStartBehavior = DragStartBehavior.start,
     VoidCallback? onSelectionHandleTapped,
     ClipboardStatusNotifier? clipboardStatus,
     this.contextMenuBuilder,
     required TextMagnifierConfiguration magnifierConfiguration,
-  }) : _handlesVisible = handlesVisible,
-       _value = value {
+  }) {
     assert(debugMaybeDispatchCreated('widgets', 'TextSelectionOverlay', this));
     renderObject.selectionStartInViewport.addListener(_updateTextSelectionOverlayVisibilities);
     renderObject.selectionEndInViewport.addListener(_updateTextSelectionOverlayVisibilities);
@@ -1074,20 +1073,20 @@ class SelectionOverlay {
   SelectionOverlay({
     required this.context,
     this.debugRequiredFor,
-    required TextSelectionHandleType startHandleType,
-    required double lineHeightAtStart,
+    required this._startHandleType,
+    required this._lineHeightAtStart,
     this.startHandlesVisible,
     this.onStartHandleDragStart,
     this.onStartHandleDragUpdate,
     this.onStartHandleDragEnd,
-    required TextSelectionHandleType endHandleType,
-    required double lineHeightAtEnd,
+    required this._endHandleType,
+    required this._lineHeightAtEnd,
     this.endHandlesVisible,
     this.onEndHandleDragStart,
     this.onEndHandleDragUpdate,
     this.onEndHandleDragEnd,
     this.toolbarVisible,
-    required List<TextSelectionPoint> selectionEndpoints,
+    required this._selectionEndpoints,
     required this.selectionControls,
     @Deprecated(
       'Use `contextMenuBuilder` in `showToolbar` instead. '
@@ -1104,15 +1103,9 @@ class SelectionOverlay {
       'Use `contextMenuBuilder` in `showToolbar` instead. '
       'This feature was deprecated after v3.3.0-0.5.pre.',
     )
-    Offset? toolbarLocation,
+    this._toolbarLocation,
     this.magnifierConfiguration = TextMagnifierConfiguration.disabled,
-  }) : _startHandleType = startHandleType,
-       _lineHeightAtStart = lineHeightAtStart,
-       _endHandleType = endHandleType,
-       _lineHeightAtEnd = lineHeightAtEnd,
-       _selectionEndpoints = selectionEndpoints,
-       _toolbarLocation = toolbarLocation,
-       assert(debugCheckHasOverlay(context)) {
+  }) : assert(debugCheckHasOverlay(context)) {
     assert(debugMaybeDispatchCreated('widgets', 'SelectionOverlay', this));
   }
 
@@ -1881,7 +1874,7 @@ class SelectionOverlay {
             lineHeightAtStart,
             midpoint,
             selectionEndpoints,
-            selectionDelegate!,
+            selectionDelegate,
             clipboardStatus,
             toolbarLocation,
           );
@@ -2343,7 +2336,7 @@ class TextSelectionGestureDetectorBuilder {
     assert(renderEditable.selection?.baseOffset != null);
 
     final TextPosition tappedPosition = renderEditable.getPositionForPoint(offset);
-    final TextSelection selection = renderEditable.selection!;
+    final TextSelection selection = renderEditable.selection;
     final TextSelection nextSelection = selection.copyWith(extentOffset: tappedPosition.offset);
 
     editableText.userUpdateTextEditingValue(

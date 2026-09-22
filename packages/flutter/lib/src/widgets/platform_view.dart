@@ -1024,7 +1024,7 @@ class _UiKitViewState
   @override
   _UiKitPlatformView childPlatformView() {
     return _UiKitPlatformView(
-      controller: _controller!,
+      controller: _controller,
       hitTestBehavior: widget.hitTestBehavior,
       gestureRecognizers: widget.gestureRecognizers ?? _DarwinViewState._emptyRecognizersSet,
     );
@@ -1051,7 +1051,7 @@ class _AppKitViewState
   @override
   _AppKitPlatformView childPlatformView() {
     return _AppKitPlatformView(
-      controller: _controller!,
+      controller: _controller,
       hitTestBehavior: widget.hitTestBehavior,
       gestureRecognizers: widget.gestureRecognizers ?? _DarwinViewState._emptyRecognizersSet,
     );
@@ -1242,11 +1242,10 @@ class PlatformViewLink extends StatefulWidget {
   ///  * [PlatformViewCreationParams] for how each parameter can be used when implementing `createPlatformView`.
   const PlatformViewLink({
     super.key,
-    required PlatformViewSurfaceFactory surfaceFactory,
-    required CreatePlatformViewCallback onCreatePlatformView,
+    required this._surfaceFactory,
+    required this._onCreatePlatformView,
     required this.viewType,
-  }) : _surfaceFactory = surfaceFactory,
-       _onCreatePlatformView = onCreatePlatformView;
+  });
 
   final PlatformViewSurfaceFactory _surfaceFactory;
   final CreatePlatformViewCallback _onCreatePlatformView;
@@ -1553,7 +1552,7 @@ class _AndroidViewSurfaceState extends State<AndroidViewSurface> {
 // Displays an Android platform view via GL texture.
 class _TextureBasedAndroidViewSurface extends PlatformViewSurface {
   const _TextureBasedAndroidViewSurface({
-    required AndroidViewController super.controller,
+    required super.controller,
     required super.hitTestBehavior,
     required super.gestureRecognizers,
   });
@@ -1575,7 +1574,7 @@ class _TextureBasedAndroidViewSurface extends PlatformViewSurface {
 
 class _PlatformLayerBasedAndroidViewSurface extends PlatformViewSurface {
   const _PlatformLayerBasedAndroidViewSurface({
-    required AndroidViewController super.controller,
+    required super.controller,
     required super.hitTestBehavior,
     required super.gestureRecognizers,
   });

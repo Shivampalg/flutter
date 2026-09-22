@@ -43,7 +43,7 @@ class _TooltipButtonState extends State<TooltipButton> {
       });
     } else {
       // Tooltip is not shown, show it.
-      final tracker = ElementPositionTracker(element: _tooltipButtonKey.currentContext!);
+      final tracker = ElementPositionTracker(element: _tooltipButtonKey.currentContext);
       late final WindowEntry entry;
       final controller = TooltipWindowController(
         anchorRect: tracker.getGlobalRect()!,

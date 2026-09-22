@@ -113,7 +113,7 @@ void main() {
       );
 
       final SemanticsNode node = tester.semantics.find(find.bySemanticsLabel('target'));
-      final SemanticsOwner owner = tester.binding.pipelineOwner.semanticsOwner!;
+      final SemanticsOwner owner = tester.binding.pipelineOwner.semanticsOwner;
 
       expect(owner.getSemanticsNode(node.id), same(node));
       expect(

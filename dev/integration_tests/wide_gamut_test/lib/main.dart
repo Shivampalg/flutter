@@ -223,7 +223,7 @@ Future<ui.Image> _loadCodecImage() async {
 Future<ui.Image> _drawImage() async {
   final recorder = ui.PictureRecorder();
   const markerSize = Size(120, 120);
-  final double canvasSize = markerSize.height + 3;
+  const double canvasSize = markerSize.height + 3;
   final canvas = Canvas(recorder, Rect.fromLTWH(0, 0, canvasSize, canvasSize));
 
   final ovalPaint = Paint()..color = const Color(0xff00ff00);

@@ -107,9 +107,7 @@ class _ProxyLayer extends Layer {
 /// secondary screenshot canvas so that a screenshot can be recorded at the same
 /// time as performing a normal paint.
 class _MulticastCanvas implements Canvas {
-  _MulticastCanvas({required Canvas main, required Canvas screenshot})
-    : _main = main,
-      _screenshot = screenshot;
+  _MulticastCanvas({required this._main, required this._screenshot});
 
   final Canvas _main;
   final Canvas _screenshot;
@@ -488,7 +486,7 @@ class _ScreenshotPaintingContext extends PaintingContext {
     _screenshotCanvas = Canvas(_screenshotRecorder!);
     _data.containerLayer.append(_screenshotCurrentLayer!);
     if (_data.includeInRegularContext) {
-      _multicastCanvas = _MulticastCanvas(main: super.canvas, screenshot: _screenshotCanvas!);
+      _multicastCanvas = _MulticastCanvas(main: super.canvas, screenshot: _screenshotCanvas);
     } else {
       _multicastCanvas = null;
     }
@@ -603,7 +601,7 @@ class _ScreenshotPaintingContext extends PaintingContext {
     }
     final data = _ScreenshotData(target: renderObject);
     final context = _ScreenshotPaintingContext(
-      containerLayer: repaintBoundary.debugLayer!,
+      containerLayer: repaintBoundary.debugLayer,
       estimatedBounds: repaintBoundary.paintBounds,
       screenshotData: data,
     );
@@ -612,7 +610,7 @@ class _ScreenshotPaintingContext extends PaintingContext {
       // Painting the existing repaint boundary to the screenshot is sufficient.
       // We don't just take a direct screenshot of the repaint boundary as we
       // want to capture debugPaint information as well.
-      data.containerLayer.append(_ProxyLayer(repaintBoundary.debugLayer!));
+      data.containerLayer.append(_ProxyLayer(repaintBoundary.debugLayer));
       data.foundTarget = true;
       final offsetLayer = repaintBoundary.debugLayer! as OffsetLayer;
       data.screenshotOffset = offsetLayer.offset;
@@ -2237,7 +2235,7 @@ mixin WidgetInspectorService {
     }
 
     if (renderObject.debugNeedsLayout) {
-      final PipelineOwner owner = renderObject.owner!;
+      final PipelineOwner owner = renderObject.owner;
       assert(!owner.debugDoingLayout);
       owner
         ..flushLayout()
@@ -3010,7 +3008,7 @@ class _WidgetInspectorState extends State<WidgetInspector> with WidgetsBindingOb
 
     final ignorePointer =
         _ignorePointerKey.currentContext!.findRenderObject()! as RenderIgnorePointer;
-    final RenderObject userRender = ignorePointer.child!;
+    final RenderObject userRender = ignorePointer.child;
     final List<RenderObject> selected = hitTest(position, userRender);
 
     selection.candidates = _filterInspectorHitCandidatesToModalRouteScope(selected);
@@ -3052,7 +3050,7 @@ class _WidgetInspectorState extends State<WidgetInspector> with WidgetsBindingOb
       return;
     }
     if (_lastPointerLocation != null) {
-      _inspectAt(_lastPointerLocation!);
+      _inspectAt(_lastPointerLocation);
       WidgetInspectorService.instance._notifyToolsOfSelection(
         selection.current,
         restrictToProjectFiles: true,
@@ -3391,7 +3389,7 @@ class _InspectorOverlay extends LeafRenderObjectWidget {
 }
 
 class _RenderInspectorOverlay extends RenderBox {
-  _RenderInspectorOverlay({required InspectorSelection selection}) : _selection = selection;
+  _RenderInspectorOverlay({required this._selection});
 
   InspectorSelection get selection => _selection;
   InspectorSelection _selection;
@@ -3631,7 +3629,7 @@ class _InspectorOverlayLayer extends Layer {
       return;
     }
 
-    final RenderObject selected = selection.current!;
+    final RenderObject selected = selection.current;
 
     if (!_isInInspectorRenderObjectTree(selected)) {
       return;

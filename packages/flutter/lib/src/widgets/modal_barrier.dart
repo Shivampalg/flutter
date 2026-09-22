@@ -57,10 +57,9 @@ class _RenderSemanticsClipper extends RenderProxyBox {
   /// Creates a [RenderProxyBox] that Updates the [SemanticsNode.rect] of its child
   /// based on the value inside provided [ValueNotifier].
   _RenderSemanticsClipper({
-    required ValueNotifier<EdgeInsets> clipDetailsNotifier,
+    required this._clipDetailsNotifier,
     RenderBox? child,
-  }) : _clipDetailsNotifier = clipDetailsNotifier,
-       super(child);
+  }) : super(child);
 
   ValueNotifier<EdgeInsets> _clipDetailsNotifier;
 
@@ -246,7 +245,7 @@ class ModalBarrier extends StatelessWidget {
         cursor: SystemMouseCursors.basic,
         child: ConstrainedBox(
           constraints: const BoxConstraints.expand(),
-          child: color == null ? null : ColoredBox(color: color!),
+          child: color == null ? null : ColoredBox(color: color),
         ),
       ),
     );
@@ -258,7 +257,7 @@ class ModalBarrier extends StatelessWidget {
     final bool excluding = !semanticsDismissible || !modalBarrierSemanticsDismissible;
 
     if (!excluding && clipDetailsNotifier != null) {
-      barrier = _SemanticsClipper(clipDetailsNotifier: clipDetailsNotifier!, child: barrier);
+      barrier = _SemanticsClipper(clipDetailsNotifier: clipDetailsNotifier, child: barrier);
     }
 
     return BlockSemantics(

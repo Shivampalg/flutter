@@ -82,7 +82,7 @@ void main() {
       textStyle2,
       0.0,
       TextStyle.lerp,
-    )!.resolve(enabled)!;
+    )!.resolve(enabled);
     expect(textStyle.fontSize, 14.0);
 
     // Using `0.5` interpolation value.
@@ -117,7 +117,7 @@ void main() {
       borderSide1,
       borderSide2,
       0.0,
-    )!.resolve(enabled)!;
+    )!.resolve(enabled);
     expect(borderSide.color, isSameColorAs(const Color(0xffff0000)));
     expect(borderSide.width, 4.0);
 

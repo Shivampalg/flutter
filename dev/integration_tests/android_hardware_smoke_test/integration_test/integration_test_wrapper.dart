@@ -34,7 +34,7 @@ void main() {
       }
 
       // The request is encoded JSON, but there is no need to decode it here.
-      final ByteData message = const StringCodec().encodeMessage(request)!;
+      final ByteData message = const StringCodec().encodeMessage(request);
       final completer = Completer<String>();
 
       // ignore: deprecated_member_use

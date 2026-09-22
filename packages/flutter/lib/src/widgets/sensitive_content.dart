@@ -239,7 +239,7 @@ class SensitiveContentHost {
     // a new content sensitivity needs to be set based on which sensitivity needs to be
     // restored to accurately reflect the SensitiveContent widgets in the tree.
     final ContentSensitivity contentSensitivityBasedOnWidgetCountsBeforeUnregister =
-        _contentSensitivitySetting.contentSensitivityBasedOnWidgetCounts!;
+        _contentSensitivitySetting.contentSensitivityBasedOnWidgetCounts;
 
     // Update the content sensitivity setting to account for removing a SensitiveContent
     // widget with sensitivity widgetSensitivity from the tree.
@@ -273,7 +273,7 @@ class SensitiveContentHost {
     // safe because contentSensitivityBasedOnWidgetCounts should always be non-null as long
     // as there are still SensitiveContent widgets in the tree.
     final ContentSensitivity contentSensitivityToRestore =
-        _contentSensitivitySetting.contentSensitivityBasedOnWidgetCounts!;
+        _contentSensitivitySetting.contentSensitivityBasedOnWidgetCounts;
     if (contentSensitivityToRestore != contentSensitivityBasedOnWidgetCountsBeforeUnregister) {
       // Set content sensitivity as contentSensitivityToRestore.
       try {

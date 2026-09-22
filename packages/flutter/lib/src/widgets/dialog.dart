@@ -176,10 +176,6 @@ class _DialogWindowRoute<T> extends Route<T> {
     }
   }
 
-  @override
-  TickerFuture didPush() {
-    return super.didPush();
-  }
 
   @override
   bool didPop(T? result) {

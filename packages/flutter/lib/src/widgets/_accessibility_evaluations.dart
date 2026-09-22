@@ -100,7 +100,7 @@ class MinimumTapTargetEvaluation extends AccessibilityEvaluation {
     final violations = <Violation>[];
     for (final RenderView view in binding.renderViews) {
       violations.addAll(
-        _traverse(view.flutterView, view.owner!.semanticsOwner!.rootSemanticsNode!),
+        _traverse(view.flutterView, view.owner!.semanticsOwner!.rootSemanticsNode),
       );
     }
 
@@ -120,7 +120,7 @@ class MinimumTapTargetEvaluation extends AccessibilityEvaluation {
       return violations;
     }
     Rect paintBounds = node.rect;
-    SemanticsNode? current = node;
+    var current = node;
 
     while (current != null) {
       final Matrix4? transform = current.transform;
@@ -199,7 +199,7 @@ class LabeledTapTargetEvaluation extends AccessibilityEvaluation {
     final violations = <Violation>[];
 
     for (final RenderView view in binding.renderViews) {
-      violations.addAll(_traverse(view.owner!.semanticsOwner!.rootSemanticsNode!));
+      violations.addAll(_traverse(view.owner!.semanticsOwner!.rootSemanticsNode));
     }
 
     return EvaluationResult(violations);
@@ -246,11 +246,11 @@ abstract class _ContrastEvaluation extends AccessibilityEvaluation {
     final violations = <Violation>[];
     for (final RenderView renderView in binding.renderViews) {
       final layer = renderView.debugLayer! as OffsetLayer;
-      final SemanticsNode root = renderView.owner!.semanticsOwner!.rootSemanticsNode!;
+      final SemanticsNode root = renderView.owner!.semanticsOwner!.rootSemanticsNode;
 
       final double ratio = 1 / renderView.flutterView.devicePixelRatio;
       final ui.Image image = await layer.toImage(renderView.paintBounds, pixelRatio: ratio);
-      final ByteData byteData = (await image.toByteData())!;
+      final ByteData byteData = await image.toByteData();
       violations.addAll(await _evaluateNode(root, image, byteData, renderView));
       image.dispose();
     }
@@ -424,7 +424,7 @@ class MinimumTextContrastEvaluation extends _ContrastEvaluation {
     rootTransform.multiply(globalTransform);
     screenBounds = MatrixUtils.transformRect(rootTransform, renderBox.paintBounds);
     Rect nodeBounds = node.rect;
-    SemanticsNode? current = node;
+    var current = node;
     while (current != null) {
       final Matrix4? transform = current.transform;
       if (transform != null) {
@@ -552,7 +552,7 @@ class MinimumNonTextContrastEvaluation extends _ContrastEvaluation {
   ) async {
     final violations = <Violation>[];
     Rect nodeBounds = node.rect;
-    SemanticsNode? current = node;
+    var current = node;
     while (current != null) {
       final Matrix4? transform = current.transform;
       if (transform != null && current.parent != null) {
@@ -783,7 +783,7 @@ class UnlabeledLeafNodeEvaluation extends AccessibilityEvaluation {
   FutureOr<EvaluationResult> _evaluate(WidgetsBinding binding) {
     final violations = <Violation>[];
     for (final RenderView view in binding.renderViews) {
-      violations.addAll(_traverse(view.owner!.semanticsOwner!.rootSemanticsNode!));
+      violations.addAll(_traverse(view.owner!.semanticsOwner!.rootSemanticsNode));
     }
     return EvaluationResult(violations);
   }
@@ -843,7 +843,7 @@ class TitleEvaluation extends AccessibilityEvaluation {
 
     if (binding.rootElement != null && !_hasTitleWidget(binding.rootElement!)) {
       final SemanticsNode rootNode =
-          binding.renderViews.first.owner!.semanticsOwner!.rootSemanticsNode!;
+          binding.renderViews.first.owner!.semanticsOwner!.rootSemanticsNode;
       violations.add(
         Violation(rootNode, 'Expected to find at least one Title widget, but none was found.'),
       );

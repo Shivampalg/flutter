@@ -533,13 +533,13 @@ abstract class RenderTwoDimensionalViewport extends RenderBox implements RenderA
   /// The [cacheExtent], if null, defaults to
   /// [RenderAbstractViewport.defaultCacheExtent].
   RenderTwoDimensionalViewport({
-    required ViewportOffset horizontalOffset,
+    required this._horizontalOffset,
     required AxisDirection horizontalAxisDirection,
-    required ViewportOffset verticalOffset,
+    required this._verticalOffset,
     required AxisDirection verticalAxisDirection,
-    required TwoDimensionalChildDelegate delegate,
-    required Axis mainAxis,
-    required TwoDimensionalChildManager childManager,
+    required this._delegate,
+    required this._mainAxis,
+    required this._childManager,
     @Deprecated(
       'Use scrollCacheExtent instead. '
       'This feature was deprecated after v3.41.0-0.0.pre.',
@@ -551,7 +551,7 @@ abstract class RenderTwoDimensionalViewport extends RenderBox implements RenderA
     )
     CacheExtentStyle? cacheExtentStyle,
     ScrollCacheExtent? scrollCacheExtent,
-    Clip clipBehavior = Clip.hardEdge,
+    this._clipBehavior = Clip.hardEdge,
   }) : assert(
          verticalAxisDirection == AxisDirection.down || verticalAxisDirection == AxisDirection.up,
          'TwoDimensionalViewport.verticalAxisDirection is not Axis.vertical.',
@@ -561,13 +561,8 @@ abstract class RenderTwoDimensionalViewport extends RenderBox implements RenderA
              horizontalAxisDirection == AxisDirection.right,
          'TwoDimensionalViewport.horizontalAxisDirection is not Axis.horizontal.',
        ),
-       _childManager = childManager,
-       _horizontalOffset = horizontalOffset,
        _horizontalAxisDirection = horizontalAxisDirection,
-       _verticalOffset = verticalOffset,
        _verticalAxisDirection = verticalAxisDirection,
-       _delegate = delegate,
-       _mainAxis = mainAxis,
        _scrollCacheExtent =
            scrollCacheExtent ??
            (cacheExtent != null
@@ -575,8 +570,7 @@ abstract class RenderTwoDimensionalViewport extends RenderBox implements RenderA
                    CacheExtentStyle.pixel || null => ScrollCacheExtent.pixels(cacheExtent),
                    CacheExtentStyle.viewport => ScrollCacheExtent.viewport(cacheExtent),
                  }
-               : const ScrollCacheExtent.pixels(RenderAbstractViewport.defaultCacheExtent)),
-       _clipBehavior = clipBehavior {
+               : const ScrollCacheExtent.pixels(RenderAbstractViewport.defaultCacheExtent)) {
     assert(() {
       _debugDanglingKeepAlives = <RenderBox>[];
       return true;
@@ -1060,7 +1054,7 @@ abstract class RenderTwoDimensionalViewport extends RenderBox implements RenderA
     };
 
     // The scroll offset in the viewport to `rect`.
-    final Offset paintOffset = parentDataOf(box).paintOffset!;
+    final Offset paintOffset = parentDataOf(box).paintOffset;
     leadingScrollOffset += switch (axisDirection) {
       AxisDirection.up => viewportDimension.height - paintOffset.dy - box.size.height,
       AxisDirection.left => viewportDimension.width - paintOffset.dx - box.size.width,
@@ -1410,7 +1404,7 @@ abstract class RenderTwoDimensionalViewport extends RenderBox implements RenderA
     }
     _lastChild = previousChild;
     if (_lastChild != null) {
-      parentDataOf(_lastChild!)._nextSibling = null;
+      parentDataOf(_lastChild)._nextSibling = null;
     }
     // Reset for next layout pass.
     _currentChildVicinities.clear();
@@ -1422,7 +1416,7 @@ abstract class RenderTwoDimensionalViewport extends RenderBox implements RenderA
     // For example, a table can have merged cells, spanning multiple
     // indices, but only represented by one RenderBox and ChildVicinity.
     if (_children.containsKey(vicinity)) {
-      final RenderBox child = _children[vicinity]!;
+      final RenderBox child = _children[vicinity];
       assert(parentDataOf(child).vicinity == vicinity);
       updateChildPaintData(child);
       if (previousChild == null) {
@@ -1502,7 +1496,7 @@ abstract class RenderTwoDimensionalViewport extends RenderBox implements RenderA
     }
 
     assert(_children.containsKey(vicinity));
-    final RenderBox child = _children[vicinity]!;
+    final RenderBox child = _children[vicinity];
     _activeChildrenForLayoutPass[vicinity] = child;
     parentDataOf(child).vicinity = vicinity;
     _currentChildVicinities.add(vicinity);
@@ -1525,13 +1519,13 @@ abstract class RenderTwoDimensionalViewport extends RenderBox implements RenderA
 
     // Set paintExtent (and visibility)
     childParentData._paintExtent = computeChildPaintExtent(
-      childParentData.layoutOffset!,
+      childParentData.layoutOffset,
       child.size,
     );
     // Set paintOffset
     childParentData.paintOffset = computeAbsolutePaintOffsetFor(
       child,
-      layoutOffset: childParentData.layoutOffset!,
+      layoutOffset: childParentData.layoutOffset,
     );
     // If the child is partially visible, or not visible at all, there is
     // visual overflow.
@@ -1705,7 +1699,7 @@ abstract class RenderTwoDimensionalViewport extends RenderBox implements RenderA
     // have been removed by _removeChild. Thus, it is ok to overwrite it.
     assert(() {
       if (_keepAliveBucket.containsKey(childParentData.vicinity)) {
-        _debugDanglingKeepAlives.add(_keepAliveBucket[childParentData.vicinity]!);
+        _debugDanglingKeepAlives.add(_keepAliveBucket[childParentData.vicinity]);
       }
       return true;
     }());
@@ -1803,7 +1797,7 @@ abstract class RenderTwoDimensionalViewport extends RenderBox implements RenderA
 
   @override
   void applyPaintTransform(RenderBox child, Matrix4 transform) {
-    final Offset paintOffset = parentDataOf(child).paintOffset!;
+    final Offset paintOffset = parentDataOf(child).paintOffset;
     transform.translate(paintOffset.dx, paintOffset.dy);
   }
 

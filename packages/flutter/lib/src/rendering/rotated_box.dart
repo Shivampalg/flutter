@@ -23,7 +23,7 @@ const double _kQuarterTurnsInRadians = math.pi / 2.0;
 /// rotated box consumes only as much space as required by the rotated child.
 class RenderRotatedBox extends RenderBox with RenderObjectWithChildMixin<RenderBox> {
   /// Creates a rotated render box.
-  RenderRotatedBox({required int quarterTurns, RenderBox? child}) : _quarterTurns = quarterTurns {
+  RenderRotatedBox({required this._quarterTurns, RenderBox? child}) {
     this.child = child;
   }
 
@@ -124,7 +124,7 @@ class RenderRotatedBox extends RenderBox with RenderObjectWithChildMixin<RenderB
       _transformLayer.layer = context.pushTransform(
         needsCompositing,
         offset,
-        _paintTransform!,
+        _paintTransform,
         _paintChild,
         oldLayer: _transformLayer.layer,
       );

@@ -306,7 +306,7 @@ class _PostFrameCallbacker extends SingleChildRenderObjectWidget {
 }
 
 class _RenderPostFrameCallbacker extends RenderProxyBox {
-  _RenderPostFrameCallbacker({FrameCallback? callback}) : _callback = callback;
+  _RenderPostFrameCallbacker() : _callback = null;
 
   FrameCallback? get callback => _callback;
   FrameCallback? _callback;
@@ -378,7 +378,7 @@ class _RenderRootableRepaintBoundary extends RenderRepaintBoundary {
   }
 
   TransformLayer _rootLayer() {
-    Layer layer = this.layer!;
+    Layer layer = this.layer;
     while (layer.parent != null) {
       layer = layer.parent!;
     }

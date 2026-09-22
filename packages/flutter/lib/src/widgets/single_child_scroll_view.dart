@@ -248,7 +248,7 @@ class SingleChildScrollView extends StatelessWidget {
     final AxisDirection axisDirection = _getDirection(context);
     Widget? contents = child;
     if (padding != null) {
-      contents = Padding(padding: padding!, child: contents);
+      contents = Padding(padding: padding, child: contents);
     }
     final bool effectivePrimary =
         primary ??
@@ -348,13 +348,10 @@ class _RenderSingleChildViewport extends RenderBox
     with RenderObjectWithChildMixin<RenderBox>
     implements RenderAbstractViewport {
   _RenderSingleChildViewport({
-    AxisDirection axisDirection = AxisDirection.down,
-    required ViewportOffset offset,
+    required this._offset,
     RenderBox? child,
-    required Clip clipBehavior,
-  }) : _axisDirection = axisDirection,
-       _offset = offset,
-       _clipBehavior = clipBehavior {
+    required this._clipBehavior,
+  }) : _axisDirection = AxisDirection.down {
     this.child = child;
   }
 

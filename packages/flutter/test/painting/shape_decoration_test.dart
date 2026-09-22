@@ -120,13 +120,13 @@ void main() {
     // transition rather than a sudden jump at the half-way point.
     for (final t in <double>[0.1, 0.25, 0.49, 0.5, 0.51, 0.75, 0.9]) {
       final ShapeDecoration forward =
-          ShapeDecoration.lerp(colorDecoration, gradientDecoration, t)!;
+          ShapeDecoration.lerp(colorDecoration, gradientDecoration, t);
       expect(forward.color, isNull);
       expect(forward.gradient, isA<LinearGradient>());
 
       // The reverse direction (gradient -> color) behaves the same way.
       final ShapeDecoration reverse =
-          ShapeDecoration.lerp(gradientDecoration, colorDecoration, t)!;
+          ShapeDecoration.lerp(gradientDecoration, colorDecoration, t);
       expect(reverse.color, isNull);
       expect(reverse.gradient, isA<LinearGradient>());
     }

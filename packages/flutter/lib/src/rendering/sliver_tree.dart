@@ -111,10 +111,9 @@ class RenderTreeSliver extends RenderSliverVariedExtentList {
   RenderTreeSliver({
     required super.childManager,
     required super.itemExtentBuilder,
-    required Map<UniqueKey, TreeSliverNodesAnimation> activeAnimations,
-    required double indentation,
-  }) : _activeAnimations = activeAnimations,
-       _indentation = indentation;
+    required this._activeAnimations,
+    required this._indentation,
+  });
 
   // TODO(Piinks): There are some opportunities to cache even further as far as
   // extents and layout offsets when using itemExtentBuilder from the super
@@ -233,7 +232,7 @@ class RenderTreeSliver extends RenderSliverVariedExtentList {
         break;
       }
       if (_animationLeadingIndices.keys.contains(index)) {
-        final UniqueKey animationKey = _animationLeadingIndices[index]!;
+        final UniqueKey animationKey = _animationLeadingIndices[index];
         if (_animationOffsets[animationKey] == null) {
           // We have not computed the distance this block is traversing over the
           // lifetime of the animation.
@@ -299,7 +298,7 @@ class RenderTreeSliver extends RenderSliverVariedExtentList {
         break;
       }
       if (_animationLeadingIndices.keys.contains(currentIndex)) {
-        final UniqueKey animationKey = _animationLeadingIndices[currentIndex]!;
+        final UniqueKey animationKey = _animationLeadingIndices[currentIndex];
         assert(_animationOffsets[animationKey] != null);
         // We add the offset accounting for the animation value.
         totalAnimationOffset +=
@@ -384,7 +383,7 @@ class RenderTreeSliver extends RenderSliverVariedExtentList {
       );
       // We use the same animation key to keep track of the clip layer, unless
       // this is the odd man out segment.
-      final UniqueKey key = _animationLeadingIndices[parentIndex]!;
+      final UniqueKey key = _animationLeadingIndices[parentIndex];
       _clipHandles[key] ??= LayerHandle<ClipRectLayer>();
       _clipHandles[key]!.layer = context.pushClipRect(needsCompositing, offset, rect, (
         PaintingContext context,

@@ -224,7 +224,7 @@ void main() {
 
     FadeTransition widget2Opacity = tester
         .element(find.text('Page 2'))
-        .findAncestorWidgetOfExactType<FadeTransition>()!;
+        .findAncestorWidgetOfExactType<FadeTransition>();
     Offset widget2TopLeft = tester.getTopLeft(find.text('Page 2'));
 
     expect(widget1TopLeft.dx == widget2TopLeft.dx, true);
@@ -283,7 +283,7 @@ void main() {
 
       FadeTransition widget2Opacity = tester
           .element(find.text('Page 2'))
-          .findAncestorWidgetOfExactType<FadeTransition>()!;
+          .findAncestorWidgetOfExactType<FadeTransition>();
       Offset widget2TopLeft = tester.getTopLeft(find.text('Page 2'));
       final Size widget2Size = tester.getSize(find.text('Page 2'));
 

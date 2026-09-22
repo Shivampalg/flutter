@@ -120,7 +120,7 @@ void main() {
       keyTestName: kImageTest,
       keyPerformAppSideGoldenCompare: false,
       keyCaptureScreenshot: false,
-    })!;
+    });
 
     // Send the message to invoke the app's channel handler
     final Future<ByteData?> responseFuture = TestDefaultBinaryMessengerBinding
@@ -152,7 +152,7 @@ void main() {
       keyTestName: kTextTest,
       keyPerformAppSideGoldenCompare: false,
       keyCaptureScreenshot: false,
-    })!;
+    });
 
     final Future<ByteData?> responseFuture = TestDefaultBinaryMessengerBinding
         .instance
@@ -185,7 +185,7 @@ void main() {
       keyTestName: kImageTest,
       keyPerformAppSideGoldenCompare: false,
       keyCaptureScreenshot: false,
-    })!;
+    });
 
     final Future<ByteData?> responseFuture = TestDefaultBinaryMessengerBinding
         .instance
@@ -212,7 +212,7 @@ void main() {
       keyTestName: kAdvancedBlendTest,
       keyPerformAppSideGoldenCompare: false,
       keyCaptureScreenshot: false,
-    })!;
+    });
 
     final Future<ByteData?> responseFuture = TestDefaultBinaryMessengerBinding
         .instance
@@ -243,7 +243,7 @@ void main() {
       keyTestName: kBackdropFilterBlurTest,
       keyPerformAppSideGoldenCompare: false,
       keyCaptureScreenshot: false,
-    })!;
+    });
 
     final Future<ByteData?> responseFuture = TestDefaultBinaryMessengerBinding
         .instance
@@ -277,7 +277,7 @@ void main() {
         keyTestName: testName,
         keyPerformAppSideGoldenCompare: false,
         keyCaptureScreenshot: false,
-      })!;
+      });
 
       final Future<ByteData?> responseFuture = TestDefaultBinaryMessengerBinding
           .instance
@@ -321,7 +321,7 @@ void main() {
         keyTestName: kPlatformViewHybridCompositionPlusPlusTest,
         keyPerformAppSideGoldenCompare: false,
         keyCaptureScreenshot: false,
-      })!;
+      });
 
       final Future<ByteData?> responseFuture = TestDefaultBinaryMessengerBinding
           .instance

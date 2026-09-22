@@ -99,7 +99,7 @@ void main() {
     // RenderTestLastChildSemanticsMultiChildParent is the parent.
     layout(parent, phase: EnginePhase.flushSemantics);
 
-    final SemanticsNode parentSemantics = parent.debugSemantics!;
+    final SemanticsNode parentSemantics = parent.debugSemantics;
 
     // Initial state: exposes originalChild.
     expect(parentSemantics.childrenCount, 1);

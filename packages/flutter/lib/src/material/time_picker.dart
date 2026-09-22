@@ -2485,7 +2485,7 @@ class _TimePickerDialogState extends State<TimePickerDialog> with RestorationMix
   void _handleOk() {
     if (_entryMode.value == TimePickerEntryMode.input ||
         _entryMode.value == TimePickerEntryMode.inputOnly) {
-      final FormState form = _formKey.currentState!;
+      final FormState form = _formKey.currentState;
       if (!form.validate()) {
         setState(() {
           _autovalidateMode.value = AutovalidateMode.always;
@@ -3783,7 +3783,7 @@ class _TimePickerDefaultsM3 extends _TimePickerDefaults {
   @override
   TextStyle get helpTextStyle {
     return WidgetStateTextStyle.resolveWith((Set<WidgetState> states) {
-      final TextStyle textStyle = _textTheme.labelMedium!;
+      final TextStyle textStyle = _textTheme.labelMedium;
       return textStyle.copyWith(color: _colors.onSurfaceVariant);
     });
   }

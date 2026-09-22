@@ -786,12 +786,10 @@ class _SliverFixedExtentCarousel extends SliverMultiBoxAdaptorWidget {
 class _RenderSliverFixedExtentCarousel extends RenderSliverFixedExtentBoxAdaptor {
   _RenderSliverFixedExtentCarousel({
     required super.childManager,
-    required double maxExtent,
-    required double minExtent,
-    required bool infinite,
-  }) : _maxExtent = maxExtent,
-       _minExtent = minExtent,
-       _infinite = infinite;
+    required this._maxExtent,
+    required this._minExtent,
+    required this._infinite,
+  });
 
   double get maxExtent => _maxExtent;
   double _maxExtent;
@@ -1022,14 +1020,11 @@ class _SliverWeightedCarousel extends SliverMultiBoxAdaptorWidget {
 class _RenderSliverWeightedCarousel extends RenderSliverFixedExtentBoxAdaptor {
   _RenderSliverWeightedCarousel({
     required super.childManager,
-    required bool consumeMaxWeight,
-    required double shrinkExtent,
-    required List<int> weights,
-    required bool infinite,
-  }) : _consumeMaxWeight = consumeMaxWeight,
-       _shrinkExtent = shrinkExtent,
-       _weights = weights,
-       _infinite = infinite;
+    required this._consumeMaxWeight,
+    required this._shrinkExtent,
+    required this._weights,
+    required this._infinite,
+  });
 
   bool get consumeMaxWeight => _consumeMaxWeight;
   bool _consumeMaxWeight;
@@ -1624,17 +1619,11 @@ class _CarouselPosition extends ScrollPositionWithSingleContext implements _Caro
     this.initialItem = 0,
     double? itemExtent,
     List<int>? flexWeights,
-    bool consumeMaxWeight = true,
-    bool infinite = false,
-    int? itemCount,
     super.oldPosition,
-  }) : assert(
+  }) : _consumeMaxWeight = true, _infinite = false, _itemCount = null, assert(
          flexWeights != null && itemExtent == null || flexWeights == null && itemExtent != null,
        ),
        _itemToShowOnStartup = initialItem.toDouble(),
-       _consumeMaxWeight = consumeMaxWeight,
-       _infinite = infinite,
-       _itemCount = itemCount,
        super(initialPixels: null);
 
   int initialItem;

@@ -2012,7 +2012,7 @@ void main() {
       ),
     );
 
-    final FormState formState = formKey.currentState!;
+    final FormState formState = formKey.currentState;
 
     expect(formState.fields.length, equals(2));
     expect(formState.fields.map((field) => field.value), containsAll(<String>['A', 'B']));

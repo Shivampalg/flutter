@@ -76,7 +76,7 @@ void main() {
 
   List<RenderObject> findAncestorRenderTheaters(RenderObject child) {
     final results = <RenderObject>[];
-    RenderObject? node = child;
+    var node = child;
     while (node != null) {
       if (node.runtimeType.toString() == '_RenderTheater') {
         results.add(node);
@@ -3351,8 +3351,8 @@ void main() {
 
         final RenderParagraph? icon = findIcon();
         final RenderParagraph? text = findText();
-        final TextStyle iconStyle = icon!.text.style!;
-        final TextStyle textStyle = text!.text.style!;
+        final TextStyle iconStyle = icon!.text.style;
+        final TextStyle textStyle = text!.text.style;
 
         expect(icon.textSize, equals(const Size(15.0, 15.0)));
         expect(icon.textDirection, equals(TextDirection.ltr));
@@ -3383,8 +3383,8 @@ void main() {
 
         final RenderParagraph? icon6x = findIcon();
         final RenderParagraph? text6x = findText();
-        final TextStyle iconStyle6x = icon6x!.text.style!;
-        final TextStyle textStyle6x = text.text.style!;
+        final TextStyle iconStyle6x = icon6x!.text.style;
+        final TextStyle textStyle6x = text.text.style;
 
         expect(iconStyle6x.fontSize, closeTo(20, 0.5));
         expect(iconStyle6x.color, isSameColorAs(defaultDarkTextColor));
@@ -3438,8 +3438,8 @@ void main() {
 
         final RenderParagraph? icon = findIcon();
         final RenderParagraph? text = findText();
-        final TextStyle iconStyle = icon!.text.style!;
-        final TextStyle textStyle = text!.text.style!;
+        final TextStyle iconStyle = icon!.text.style;
+        final TextStyle textStyle = text!.text.style;
 
         expect(icon.textDirection, equals(TextDirection.ltr));
         expect(icon.maxLines, isNull);
@@ -3473,8 +3473,8 @@ void main() {
 
         final RenderParagraph? icon6x = findIcon();
         final RenderParagraph? text6x = findText();
-        final TextStyle iconStyle6x = icon6x!.text.style!;
-        final TextStyle textStyle6x = text.text.style!;
+        final TextStyle iconStyle6x = icon6x!.text.style;
+        final TextStyle textStyle6x = text.text.style;
 
         expect(iconStyle6x.fontSize, closeTo(28.5, 0.5));
         expect(iconStyle6x.color, isSameColorAs(defaultDarkTextColor));
@@ -3521,7 +3521,7 @@ void main() {
         await tester.pumpAndSettle();
 
         final RenderParagraph? text = findText();
-        final TextStyle textStyle = text!.text.style!;
+        final TextStyle textStyle = text!.text.style;
 
         expect(text.textScaler, equals(TextScaler.noScaling));
         expect(text.textDirection, equals(TextDirection.ltr));
@@ -3534,8 +3534,8 @@ void main() {
           await tester.pumpWidget(buildApp(textScaler: size));
 
           final TextStyle expectedTextStyle = DynamicTypeStyle.body.resolveTextStyle(size);
-          final RenderParagraph textSized = findText()!;
-          final TextStyle textStyle = textSized.text.style!;
+          final RenderParagraph textSized = findText();
+          final TextStyle textStyle = textSized.text.style;
           expect(textSized.textScaler, equals(size));
           expect(textStyle.fontSize, equals(17));
           expect(textStyle.letterSpacing, equals(expectedTextStyle.letterSpacing));
@@ -3583,7 +3583,7 @@ void main() {
         await tester.pumpAndSettle();
 
         final RenderParagraph? text = findText();
-        final TextStyle textStyle = text!.text.style!;
+        final TextStyle textStyle = text!.text.style;
 
         expect(text.textScaler, equals(TextScaler.noScaling));
         expect(text.textDirection, equals(TextDirection.ltr));
@@ -3610,8 +3610,8 @@ void main() {
           await tester.pumpWidget(buildApp(textScaler: size));
 
           final TextStyle expectedTextStyle = DynamicTypeStyle.subhead.resolveTextStyle(size);
-          final RenderParagraph textSized = findText()!;
-          final TextStyle textStyle = textSized.text.style!;
+          final RenderParagraph textSized = findText();
+          final TextStyle textStyle = textSized.text.style;
           expect(textSized.textScaler, equals(size));
           expect(textStyle.fontSize, equals(15));
           expect(textStyle.letterSpacing, equals(expectedTextStyle.letterSpacing));
@@ -3622,7 +3622,7 @@ void main() {
         await tester.pumpWidget(buildApp(brightness: ui.Brightness.dark));
 
         final RenderParagraph? darkText = findText();
-        final TextStyle darkTextStyle = darkText!.text.style!;
+        final TextStyle darkTextStyle = darkText!.text.style;
 
         expect(
           darkTextStyle.foreground,
@@ -4472,7 +4472,7 @@ void main() {
           controller.open();
           await tester.pumpAndSettle();
 
-          final RenderParagraph paragraph = findDescendantParagraph(tester, find.text(longText))!;
+          final RenderParagraph paragraph = findDescendantParagraph(tester, find.text(longText));
           final double childLineHeight = lineHeight(DynamicTypeStyle.body.ax1);
 
           expect(paragraph.maxLines, equals(100));
@@ -4574,7 +4574,7 @@ void main() {
           controller.open();
           await tester.pumpAndSettle();
 
-          final RenderParagraph paragraph = findDescendantParagraph(tester, find.byKey(Tag.a.key))!;
+          final RenderParagraph paragraph = findDescendantParagraph(tester, find.byKey(Tag.a.key));
           expect(paragraph.maxLines, equals(2));
           expect(paragraph.size.height, closeTo(58, 1)); // 2 lines of text
           expect(tester.getSize(find.byType(CupertinoMenuItem)).height, closeTo(87, 1));
@@ -4603,7 +4603,7 @@ void main() {
           controller.open();
           await tester.pumpAndSettle();
 
-          final RenderParagraph paragraph = findDescendantParagraph(tester, find.byKey(Tag.a.key))!;
+          final RenderParagraph paragraph = findDescendantParagraph(tester, find.byKey(Tag.a.key));
           expect(paragraph.maxLines, equals(100));
           expect(paragraph.size.height, closeTo(3400, 1)); // 100 lines of text
           expect(tester.getSize(find.byType(CupertinoMenuItem)).height, closeTo(3433, 1));
@@ -5389,7 +5389,7 @@ void main() {
           controller.open();
           await tester.pumpAndSettle();
 
-          final RenderParagraph paragraph = findDescendantParagraph(tester, find.text(longText))!;
+          final RenderParagraph paragraph = findDescendantParagraph(tester, find.text(longText));
           expect(paragraph.maxLines, equals(100));
           expect(tester.getSize(find.text(longText)).height, closeTo(3100, 1));
         });
@@ -6641,14 +6641,13 @@ abstract class Tag {
 }
 
 class NestedTag extends Tag {
-  const NestedTag(String name, {Tag? prefix, this.level = 0})
+  const NestedTag(String name, {this._prefix, this.level = 0})
     : assert(
         // Limit the nesting level to prevent stack overflow.
         level < 9,
         'NestedTag.level must be less than 9 (was $level).',
       ),
-      _name = name,
-      _prefix = prefix;
+      _name = name;
 
   final String _name;
   final Tag? _prefix;
@@ -6860,10 +6859,10 @@ enum DynamicTypeStyle {
 class DebugCupertinoMenuEntry extends StatelessWidget implements CupertinoMenuEntry {
   const DebugCupertinoMenuEntry({
     super.key,
-    bool hasLeading = false,
+    this._hasLeading = false,
     this.isDivider = false,
     this.child,
-  }) : _hasLeading = hasLeading;
+  });
 
   final bool _hasLeading;
 

@@ -409,7 +409,7 @@ void main() {
     WidgetsBinding.instance.addObserver(observer);
     final ByteData message = const JSONMessageCodec().encodeMessage(<String, dynamic>{
       'type': 'memoryPressure',
-    })!;
+    });
     await tester.binding.defaultBinaryMessenger.handlePlatformMessage(
       'flutter/system',
       message,
@@ -500,11 +500,11 @@ void main() {
     final ByteData message = const JSONMethodCodec().encodeMethodCall(
       const MethodCall('pushRoute', testRouteName),
     );
-    final ByteData result = (await tester.binding.defaultBinaryMessenger.handlePlatformMessage(
+    final ByteData result = await tester.binding.defaultBinaryMessenger.handlePlatformMessage(
       'flutter/navigation',
       message,
       (_) {},
-    ))!;
+    );
     final decodedResult = const JSONMethodCodec().decodeEnvelope(result) as bool;
 
     expect(decodedResult, true);
@@ -525,11 +525,11 @@ void main() {
     final ByteData message = const JSONMethodCodec().encodeMethodCall(
       const MethodCall('pushRouteInformation', testRouteInformation),
     );
-    final ByteData result = (await tester.binding.defaultBinaryMessenger.handlePlatformMessage(
+    final ByteData result = await tester.binding.defaultBinaryMessenger.handlePlatformMessage(
       'flutter/navigation',
       message,
       (_) {},
-    ))!;
+    );
     final decodedResult = const JSONMethodCodec().decodeEnvelope(result) as bool;
 
     expect(decodedResult, true);
@@ -647,11 +647,11 @@ void main() {
       const MethodCall('pushRouteInformation', testRouteInformation),
     );
 
-    final ByteData result = (await tester.binding.defaultBinaryMessenger.handlePlatformMessage(
+    final ByteData result = await tester.binding.defaultBinaryMessenger.handlePlatformMessage(
       'flutter/navigation',
       message,
       (_) {},
-    ))!;
+    );
     final decodedResult = const JSONMethodCodec().decodeEnvelope(result) as bool;
 
     expect(decodedResult, false);
@@ -663,11 +663,11 @@ void main() {
       const MethodCall('pushRoute', testRoute),
     );
 
-    final ByteData result = (await tester.binding.defaultBinaryMessenger.handlePlatformMessage(
+    final ByteData result = await tester.binding.defaultBinaryMessenger.handlePlatformMessage(
       'flutter/navigation',
       message,
       (_) {},
-    ))!;
+    );
     final decodedResult = const JSONMethodCodec().decodeEnvelope(result) as bool;
 
     expect(decodedResult, false);
@@ -692,11 +692,11 @@ void main() {
       );
     });
 
-    final ByteData result = (await tester.binding.defaultBinaryMessenger.handlePlatformMessage(
+    final ByteData result = await tester.binding.defaultBinaryMessenger.handlePlatformMessage(
       'flutter/navigation',
       message,
       (_) {},
-    ))!;
+    );
     final decodedResult = const JSONMethodCodec().decodeEnvelope(result) as bool;
 
     expect(decodedResult, false);

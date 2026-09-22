@@ -399,7 +399,7 @@ class _BottomSheetState extends State<BottomSheet> {
             : Stack(
                 alignment: Alignment.topCenter,
                 children: <Widget>[
-                  dragHandle!,
+                  dragHandle,
                   Padding(
                     padding: const EdgeInsets.only(top: kMinInteractiveDimension),
                     child: widget.builder(context),
@@ -526,15 +526,11 @@ class _BottomSheetLayoutWithSizeListener extends SingleChildRenderObjectWidget {
 class _RenderBottomSheetLayoutWithSizeListener extends RenderShiftedBox {
   _RenderBottomSheetLayoutWithSizeListener({
     RenderBox? child,
-    required ValueChanged<Size> onChildSizeChanged,
-    required double animationValue,
-    required bool isScrollControlled,
-    required double scrollControlDisabledMaxHeightRatio,
-  }) : _onChildSizeChanged = onChildSizeChanged,
-       _animationValue = animationValue,
-       _isScrollControlled = isScrollControlled,
-       _scrollControlDisabledMaxHeightRatio = scrollControlDisabledMaxHeightRatio,
-       super(child);
+    required this._onChildSizeChanged,
+    required this._animationValue,
+    required this._isScrollControlled,
+    required this._scrollControlDisabledMaxHeightRatio,
+  }) : super(child);
 
   Size _lastSize = Size.zero;
 
@@ -1118,7 +1114,7 @@ class ModalBottomSheetRoute<T> extends PopupRoute<T> {
       willDisposeAnimationController = false;
     } else {
       _animationController = BottomSheet.createAnimationController(
-        navigator!,
+        navigator,
         sheetAnimationStyle: sheetAnimationStyle,
       );
     }

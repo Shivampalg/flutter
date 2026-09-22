@@ -510,7 +510,7 @@ class Scrollable extends StatefulWidget {
     while (scrollable != null) {
       final List<Future<void>> newFutures;
       (newFutures, scrollable) = scrollable._performEnsureVisible(
-        context.findRenderObject()!,
+        context.findRenderObject(),
         alignment: alignment,
         duration: duration,
         curve: curve,
@@ -1169,9 +1169,8 @@ class _ScrollableSelectionHandlerState extends State<_ScrollableSelectionHandler
 /// date with the scroll position when it sends the drag update event to a
 /// selectable.
 class _ScrollableSelectionContainerDelegate extends MultiSelectableSelectionContainerDelegate {
-  _ScrollableSelectionContainerDelegate({required this.state, required ScrollPosition position})
-    : _position = position,
-      _autoScroller = EdgeDraggingAutoScroller(
+  _ScrollableSelectionContainerDelegate({required this.state, required this._position})
+    : _autoScroller = EdgeDraggingAutoScroller(
         state,
         velocityScalar: _kDefaultSelectToScrollVelocityScalar,
       ) {
@@ -1344,7 +1343,7 @@ class _ScrollableSelectionContainerDelegate extends MultiSelectableSelectionCont
         (_currentDragStartRelatedToOrigin == null || forceUpdateStart)) {
       final SelectionGeometry geometry = selectables[currentSelectionStartIndex].value;
       assert(geometry.hasSelection);
-      final SelectionPoint start = geometry.startSelectionPoint!;
+      final SelectionPoint start = geometry.startSelectionPoint;
       final Matrix4 childTransform = selectables[currentSelectionStartIndex].getTransformTo(box);
       final Offset localDragStart = MatrixUtils.transformPoint(
         childTransform,
@@ -1359,7 +1358,7 @@ class _ScrollableSelectionContainerDelegate extends MultiSelectableSelectionCont
         (_currentDragEndRelatedToOrigin == null || forceUpdateEnd)) {
       final SelectionGeometry geometry = selectables[currentSelectionEndIndex].value;
       assert(geometry.hasSelection);
-      final SelectionPoint end = geometry.endSelectionPoint!;
+      final SelectionPoint end = geometry.endSelectionPoint;
       final Matrix4 childTransform = selectables[currentSelectionEndIndex].getTransformTo(box);
       final Offset localDragEnd = MatrixUtils.transformPoint(
         childTransform,
@@ -1647,13 +1646,11 @@ class _ScrollSemantics extends SingleChildRenderObjectWidget {
 class _RenderScrollSemantics extends RenderProxyBox {
   _RenderScrollSemantics({
     required ScrollPosition position,
-    required bool allowImplicitScrolling,
+    required this._allowImplicitScrolling,
     required this.axis,
-    required int? semanticChildCount,
+    required this._semanticChildCount,
     RenderBox? child,
   }) : _position = position,
-       _allowImplicitScrolling = allowImplicitScrolling,
-       _semanticChildCount = semanticChildCount,
        super(child) {
     position.addListener(markNeedsSemanticsUpdate);
   }
@@ -1737,7 +1734,7 @@ class _RenderScrollSemantics extends RenderProxyBox {
     (_innerNode ??= SemanticsNode(showOnScreen: showOnScreen)).rect = node.rect;
 
     int? firstVisibleIndex;
-    final excluded = <SemanticsNode>[_innerNode!];
+    final excluded = <SemanticsNode>[_innerNode];
     final included = <SemanticsNode>[];
     for (final child in children) {
       assert(child.isTagged(RenderViewport.useTwoPaneSemantics));

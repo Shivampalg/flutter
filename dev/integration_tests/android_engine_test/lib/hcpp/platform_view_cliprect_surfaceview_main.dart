@@ -61,7 +61,7 @@ class _ClipRectHomePageState extends State<ClipRectHomePage> {
   @override
   Widget build(BuildContext context) {
     // Content that will be clipped
-    Widget content = const Stack(
+    var content = const Stack(
       alignment: Alignment.center,
       children: <Widget>[
         // Background

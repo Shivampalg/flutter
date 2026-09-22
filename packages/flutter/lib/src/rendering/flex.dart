@@ -420,24 +420,16 @@ class RenderFlex extends RenderBox
   /// start of the main axis and the center of the cross axis.
   RenderFlex({
     List<RenderBox>? children,
-    Axis direction = Axis.horizontal,
-    MainAxisSize mainAxisSize = MainAxisSize.max,
-    MainAxisAlignment mainAxisAlignment = MainAxisAlignment.start,
-    CrossAxisAlignment crossAxisAlignment = CrossAxisAlignment.center,
-    TextDirection? textDirection,
-    VerticalDirection verticalDirection = VerticalDirection.down,
-    TextBaseline? textBaseline,
-    Clip clipBehavior = Clip.none,
+    this._direction = Axis.horizontal,
+    this._mainAxisSize = MainAxisSize.max,
+    this._mainAxisAlignment = MainAxisAlignment.start,
+    this._crossAxisAlignment = CrossAxisAlignment.center,
+    this._textDirection,
+    this._verticalDirection = VerticalDirection.down,
+    this._textBaseline,
+    this._clipBehavior = Clip.none,
     double spacing = 0.0,
-  }) : _direction = direction,
-       _mainAxisAlignment = mainAxisAlignment,
-       _mainAxisSize = mainAxisSize,
-       _crossAxisAlignment = crossAxisAlignment,
-       _textDirection = textDirection,
-       _verticalDirection = verticalDirection,
-       _textBaseline = textBaseline,
-       _clipBehavior = clipBehavior,
-       _spacing = spacing,
+  }) : _spacing = spacing,
        assert(spacing >= 0.0) {
     addAll(children);
   }
@@ -987,7 +979,7 @@ class RenderFlex extends RenderBox
       if (childBaseline != null) {
         // Calculate cross-axis position to match performLayout exactly
         final double? childBaselineOffset = _isBaselineAligned && textBaseline != null
-            ? child.getDryBaseline(childConstraints, textBaseline!)
+            ? child.getDryBaseline(childConstraints, textBaseline)
             : null;
         final bool baselineAlign = baselineOffset != null && childBaselineOffset != null;
 
@@ -1361,7 +1353,7 @@ class RenderFlex extends RenderBox
       final double? childBaselineOffset;
       final bool baselineAlign =
           baselineOffset != null &&
-          (childBaselineOffset = child.getDistanceToBaseline(textBaseline!, onlyReal: true)) !=
+          (childBaselineOffset = child.getDistanceToBaseline(textBaseline, onlyReal: true)) !=
               null;
       final double childCrossPosition;
       if (baselineAlign) {

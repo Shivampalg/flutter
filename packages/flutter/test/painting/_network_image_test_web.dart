@@ -504,7 +504,7 @@ void runTests() {
       final RenderWebImage renderWebImage = tester.renderObject(find.byType(RawWebImage));
       expect(renderWebImage.size, const Size(300, 300));
 
-      final RenderBox child = renderWebImage.child!;
+      final RenderBox child = renderWebImage.child;
       expect(child.size, const Size(300, 150));
 
       final parentData = child.parentData! as BoxParentData;
@@ -535,7 +535,7 @@ void runTests() {
       final RenderWebImage renderWebImage = tester.renderObject(find.byType(RawWebImage));
       expect(renderWebImage.size, const Size(300, 300));
 
-      final RenderBox child = renderWebImage.child!;
+      final RenderBox child = renderWebImage.child;
       expect(child.size, const Size(600, 300));
 
       final parentData = child.parentData! as BoxParentData;
@@ -571,7 +571,7 @@ void runTests() {
       final RenderWebImage renderWebImage = tester.renderObject(find.byType(RawWebImage));
       expect(renderWebImage.size, const Size(100, 50));
 
-      final RenderBox child = renderWebImage.child!;
+      final RenderBox child = renderWebImage.child;
       expect(child.size, const Size(200, 100));
 
       final parentData = child.parentData! as BoxParentData;
@@ -599,7 +599,7 @@ void runTests() {
       );
 
       RenderWebImage renderWebImage = tester.renderObject(find.byType(RawWebImage));
-      RenderBox child = renderWebImage.child!;
+      RenderBox child = renderWebImage.child;
       var parentData = child.parentData! as BoxParentData;
       expect(parentData.offset, Offset.zero);
 

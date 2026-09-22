@@ -639,10 +639,7 @@ class _PipelineOwnerScope extends InheritedWidget {
 class _MultiChildComponentWidget extends Widget {
   const _MultiChildComponentWidget({
     super.key,
-    List<Widget> views = const <Widget>[],
-    Widget? child,
-  }) : _views = views,
-       _child = child;
+  }) : _views = const <Widget>[] : final _child;
 
   // It is up to the subclasses to make the relevant properties public.
   final List<Widget> _views;

@@ -305,7 +305,7 @@ void main() {
         ) {
           return Future<ByteData>.delayed(
             const Duration(milliseconds: 10),
-            () => jsonMessage.encodeMessage(<dynamic>['hello world'])!,
+            () => jsonMessage.encodeMessage(<dynamic>['hello world']),
           );
         });
         // ignore: unawaited_futures
@@ -341,7 +341,7 @@ void main() {
         ) {
           return Future<ByteData>.delayed(
             const Duration(milliseconds: 10),
-            () => jsonMessage.encodeMessage(<dynamic>['hello world'])!,
+            () => jsonMessage.encodeMessage(<dynamic>['hello world']),
           );
         });
 
@@ -352,7 +352,7 @@ void main() {
         ) {
           return Future<ByteData>.delayed(
             const Duration(milliseconds: 20),
-            () => jsonMessage.encodeMessage(<dynamic>['hello world'])!,
+            () => jsonMessage.encodeMessage(<dynamic>['hello world']),
           );
         });
         // ignore: unawaited_futures
@@ -394,7 +394,7 @@ void main() {
         ) {
           return Future<ByteData>.delayed(
             const Duration(milliseconds: 10),
-            () => jsonMessage.encodeMessage(<dynamic>['hello world'])!,
+            () => jsonMessage.encodeMessage(<dynamic>['hello world']),
           );
         });
 
@@ -405,7 +405,7 @@ void main() {
         ) {
           return Future<ByteData>.delayed(
             const Duration(milliseconds: 20),
-            () => jsonMessage.encodeMessage(<dynamic>['hello world'])!,
+            () => jsonMessage.encodeMessage(<dynamic>['hello world']),
           );
         });
 
@@ -450,7 +450,7 @@ void main() {
         ) {
           return Future<ByteData>.delayed(
             const Duration(milliseconds: 20),
-            () => jsonMessage.encodeMessage(<dynamic>['hello world'])!,
+            () => jsonMessage.encodeMessage(<dynamic>['hello world']),
           );
         });
 
@@ -461,7 +461,7 @@ void main() {
         ) {
           return Future<ByteData>.delayed(
             const Duration(milliseconds: 10),
-            () => jsonMessage.encodeMessage(<dynamic>['hello world'])!,
+            () => jsonMessage.encodeMessage(<dynamic>['hello world']),
           );
         });
 

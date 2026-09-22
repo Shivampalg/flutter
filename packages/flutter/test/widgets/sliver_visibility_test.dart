@@ -80,7 +80,7 @@ void main() {
     expect(find.byType(SliverVisibility), findsOneWidget);
     expect(find.byType(SliverVisibility), paints..paragraph());
     RenderViewport renderViewport = tester.renderObject(find.byType(Viewport));
-    RenderSliver renderSliver = renderViewport.lastChild!;
+    RenderSliver renderSliver = renderViewport.lastChild;
     expect(renderSliver.geometry!.scrollExtent, 14.0);
     expect(renderSliver.constraints.crossAxisExtent, 800.0);
     expect(semantics.nodesWith(label: 'a true'), hasLength(1));

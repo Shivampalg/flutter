@@ -1283,9 +1283,9 @@ void main() {
 
       // Invoke a bunch of times and verify it still produces the same result.
       final randomContexts = <BuildContext>[
-        invokingContext!,
+        invokingContext,
         invokingContext2,
-        invokingContext!,
+        invokingContext,
         invokingContext3,
         invokingContext3,
         invokingContext3,
@@ -2223,7 +2223,7 @@ class DefaultToKeyEventResultIntent extends Intent {
 }
 
 class DefaultToKeyEventResultAction extends Action<DefaultToKeyEventResultIntent> {
-  DefaultToKeyEventResultAction({required bool consumesKey}) : _consumesKey = consumesKey;
+  DefaultToKeyEventResultAction({required this._consumesKey});
 
   final bool _consumesKey;
 

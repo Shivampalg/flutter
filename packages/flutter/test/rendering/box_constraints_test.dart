@@ -65,7 +65,7 @@ void main() {
       minHeight: 11.0,
       maxHeight: 17.0,
     );
-    BoxConstraints copy = BoxConstraints.lerp(null, constraints, 0.5)!;
+    BoxConstraints copy = BoxConstraints.lerp(null, constraints, 0.5);
     expect(copy.minWidth, moreOrLessEquals(1.5));
     expect(copy.maxWidth, moreOrLessEquals(3.5));
     expect(copy.minHeight, moreOrLessEquals(5.5));

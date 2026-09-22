@@ -468,14 +468,11 @@ class FocusNode with DiagnosticableTreeMixin, ChangeNotifier {
     )
     this.onKey,
     this.onKeyEvent,
-    bool skipTraversal = false,
-    bool canRequestFocus = true,
-    bool descendantsAreFocusable = true,
-    bool descendantsAreTraversable = true,
-  }) : _skipTraversal = skipTraversal,
-       _canRequestFocus = canRequestFocus,
-       _descendantsAreFocusable = descendantsAreFocusable,
-       _descendantsAreTraversable = descendantsAreTraversable {
+    this._skipTraversal = false,
+    this._canRequestFocus = true,
+    this._descendantsAreFocusable = true,
+    this._descendantsAreTraversable = true,
+  }) {
     // Set it via the setter so that it does nothing on release builds.
     this.debugLabel = debugLabel;
 
@@ -850,7 +847,7 @@ class FocusNode with DiagnosticableTreeMixin, ChangeNotifier {
       'The context needs to be set before trying to evaluate traversal policies. '
       'Setting the context is typically done with the attach method.',
     );
-    final RenderObject object = context!.findRenderObject()!;
+    final RenderObject object = context!.findRenderObject();
     return MatrixUtils.transformPoint(object.getTransformTo(null), object.semanticBounds.topLeft);
   }
 
@@ -865,7 +862,7 @@ class FocusNode with DiagnosticableTreeMixin, ChangeNotifier {
       'The context needs to be set before trying to evaluate traversal policies. '
       'Setting the context is typically done with the attach method.',
     );
-    final RenderObject object = context!.findRenderObject()!;
+    final RenderObject object = context!.findRenderObject();
     final Offset topLeft = MatrixUtils.transformPoint(
       object.getTransformTo(null),
       object.semanticBounds.topLeft,
@@ -2282,7 +2279,7 @@ class _HighlightModeManager {
       final results = <KeyEventResult>[
         if (node.onKeyEvent != null)
           for (final KeyEvent event in message.events) node.onKeyEvent!(node, event),
-        if (node.onKey != null && message.rawEvent != null) node.onKey!(node, message.rawEvent!),
+        if (node.onKey != null && message.rawEvent != null) node.onKey!(node, message.rawEvent),
       ];
       final KeyEventResult result = combineKeyEventResults(results);
       switch (result) {

@@ -143,7 +143,7 @@ void main() {
       );
 
       final int mergedNodeId = tester.getSemantics(find.text('Test')).id;
-      final SemanticsOwner owner = tester.binding.pipelineOwner.semanticsOwner!;
+      final SemanticsOwner owner = tester.binding.pipelineOwner.semanticsOwner;
 
       owner.performAction(
         mergedNodeId,
@@ -224,7 +224,7 @@ void main() {
       );
 
       final int mergedNodeId = tester.getSemantics(find.text('first child')).id;
-      final SemanticsOwner owner = tester.binding.pipelineOwner.semanticsOwner!;
+      final SemanticsOwner owner = tester.binding.pipelineOwner.semanticsOwner;
 
       // The second sibling's action — would route to the merge root with
       // the broken outer-guard logic and fall through to a no-op.
@@ -300,7 +300,7 @@ void main() {
       // performActionAt expects positions in the root semantics node's
       // coordinate space, which is physical pixels — see SemanticsDebugger.
       final Offset center = tester.getCenter(find.text('hit')) * tester.view.devicePixelRatio;
-      final SemanticsOwner owner = tester.binding.pipelineOwner.semanticsOwner!;
+      final SemanticsOwner owner = tester.binding.pipelineOwner.semanticsOwner;
 
       owner.performActionAt(
         center,

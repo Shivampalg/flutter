@@ -462,13 +462,12 @@ class TestGesture {
   /// None of the arguments may be null. The `dispatcher` and `hitTester`
   /// arguments are required.
   TestGesture({
-    required EventDispatcher dispatcher,
+    required this._dispatcher,
     int pointer = 1,
     PointerDeviceKind kind = PointerDeviceKind.touch,
     int? device,
     int buttons = kPrimaryButton,
-  }) : _dispatcher = dispatcher,
-       _pointer = TestPointer(pointer, kind, device, buttons);
+  }) : _pointer = TestPointer(pointer, kind, device, buttons);
 
   /// Dispatch a pointer down event at the given `downLocation`, caching the
   /// hit test result.
@@ -543,7 +542,7 @@ class TestGesture {
     assert(_pointer.location != null);
     if (_pointer.isPanZoomActive) {
       return panZoomUpdate(
-        _pointer.location!,
+        _pointer.location,
         pan: (_pointer.pan ?? Offset.zero) + offset,
         timeStamp: timeStamp,
         view: view,

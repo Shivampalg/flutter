@@ -44,7 +44,7 @@ void main() {
       ),
     );
 
-    final Route<dynamic> route = ModalRoute.of(tester.element(find.text('Page')))!;
+    final Route<dynamic> route = ModalRoute.of(tester.element(find.text('Page')));
     expect(route is PageRouteBuilder, isTrue);
     final pageRoute = route as PageRouteBuilder<dynamic>;
 

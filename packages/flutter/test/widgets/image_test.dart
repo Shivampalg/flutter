@@ -58,9 +58,9 @@ void main() {
   });
 
   testWidgets('Verify Image does not use disposed handles', (WidgetTester tester) async {
-    final ui.Image image100x100 = (await tester.runAsync(
+    final ui.Image image100x100 = await tester.runAsync(
       () async => createTestImage(width: 100, height: 100),
-    ))!;
+    );
 
     final imageProvider1 = _TestImageProvider();
     final imageProvider2 = _TestImageProvider();
@@ -432,9 +432,9 @@ void main() {
   );
 
   testWidgets('Verify Image stops listening to ImageStream', (WidgetTester tester) async {
-    final ui.Image image100x100 = (await tester.runAsync(
+    final ui.Image image100x100 = await tester.runAsync(
       () async => createTestImage(width: 100, height: 100),
-    ))!;
+    );
     // Web does not override the toString, whereas VM does
     final imageString = image100x100.toString();
 
@@ -891,11 +891,11 @@ void main() {
         image: _TestImageProvider(streamCompleter: imageStreamCompleter),
       );
 
-      final ui.Codec codec = (await tester.runAsync(() {
+      final ui.Codec codec = await tester.runAsync(() {
         return ui.instantiateImageCodec(Uint8List.fromList(kAnimatedGif));
-      }))!;
+      });
       Future<ui.Image> nextFrame() async {
-        final ui.FrameInfo frameInfo = (await tester.runAsync(codec.getNextFrame))!;
+        final ui.FrameInfo frameInfo = await tester.runAsync(codec.getNextFrame);
         return frameInfo.image;
       }
 
@@ -924,11 +924,11 @@ void main() {
         excludeFromSemantics: true,
         image: _TestImageProvider(streamCompleter: imageStreamCompleter),
       );
-      final ui.Codec codec = (await tester.runAsync(() {
+      final ui.Codec codec = await tester.runAsync(() {
         return ui.instantiateImageCodec(Uint8List.fromList(kAnimatedGif));
-      }))!;
+      });
       Future<ui.Image> nextFrame() async {
-        final ui.FrameInfo frameInfo = (await tester.runAsync(codec.getNextFrame))!;
+        final ui.FrameInfo frameInfo = await tester.runAsync(codec.getNextFrame);
         return frameInfo.image;
       }
 
@@ -956,9 +956,9 @@ void main() {
 
       final imageProvider1 = _TestImageProvider();
       final imageProvider2 = _TestImageProvider();
-      final ui.Image image100x100 = (await tester.runAsync(
+      final ui.Image image100x100 = await tester.runAsync(
         () async => createTestImage(width: 100, height: 100),
-      ))!;
+      );
 
       await tester.pumpWidget(
         Container(
@@ -978,7 +978,7 @@ void main() {
       renderImage = key.currentContext!.findRenderObject()! as RenderImage;
       expect(renderImage.image, isNotNull);
 
-      final ui.Image oldImage = renderImage.image!;
+      final ui.Image oldImage = renderImage.image;
 
       await tester.pumpWidget(
         Container(
@@ -1078,12 +1078,12 @@ void main() {
     experimentalLeakTesting: LeakTesting.settings
         .withIgnoredAll(), // The test leaks by design, see [_TestImageStreamCompleter].
     (WidgetTester tester) async {
-      final ui.Codec codec = (await tester.runAsync(() {
+      final ui.Codec codec = await tester.runAsync(() {
         return ui.instantiateImageCodec(Uint8List.fromList(kAnimatedGif));
-      }))!;
+      });
 
       Future<ui.Image> nextFrame() async {
-        final ui.FrameInfo frameInfo = (await tester.runAsync(codec.getNextFrame))!;
+        final ui.FrameInfo frameInfo = await tester.runAsync(codec.getNextFrame);
         return frameInfo.image;
       }
 
@@ -1222,12 +1222,12 @@ void main() {
     experimentalLeakTesting: LeakTesting.settings
         .withIgnoredAll(), // The test leaks by design, see [_TestImageStreamCompleter].
     (WidgetTester tester) async {
-      final ui.Codec codec = (await tester.runAsync(() {
+      final ui.Codec codec = await tester.runAsync(() {
         return ui.instantiateImageCodec(Uint8List.fromList(kAnimatedGif));
-      }))!;
+      });
 
       Future<ui.Image> nextFrame() async {
-        final ui.FrameInfo frameInfo = (await tester.runAsync(codec.getNextFrame))!;
+        final ui.FrameInfo frameInfo = await tester.runAsync(codec.getNextFrame);
         return frameInfo.image;
       }
 
@@ -1296,12 +1296,12 @@ void main() {
     experimentalLeakTesting: LeakTesting.settings
         .withIgnoredAll(), // The test leaks by design, see [_TestImageStreamCompleter].
     (WidgetTester tester) async {
-      final ui.Codec codec = (await tester.runAsync(() {
+      final ui.Codec codec = await tester.runAsync(() {
         return ui.instantiateImageCodec(Uint8List.fromList(kAnimatedGif));
-      }))!;
+      });
 
       Future<ui.Image> nextFrame() async {
-        final ui.FrameInfo frameInfo = (await tester.runAsync(codec.getNextFrame))!;
+        final ui.FrameInfo frameInfo = await tester.runAsync(codec.getNextFrame);
         return frameInfo.image;
       }
 
@@ -1396,12 +1396,12 @@ void main() {
     experimentalLeakTesting: LeakTesting.settings
         .withIgnoredAll(), // The test leaks by design, see [_TestImageStreamCompleter].
     (WidgetTester tester) async {
-      final ui.Codec codec = (await tester.runAsync(() {
+      final ui.Codec codec = await tester.runAsync(() {
         return ui.instantiateImageCodec(Uint8List.fromList(kAnimatedGif));
-      }))!;
+      });
 
       Future<ui.Image> nextFrame() async {
-        final ui.FrameInfo frameInfo = (await tester.runAsync(codec.getNextFrame))!;
+        final ui.FrameInfo frameInfo = await tester.runAsync(codec.getNextFrame);
         return frameInfo.image;
       }
 
@@ -1449,12 +1449,12 @@ void main() {
     experimentalLeakTesting: LeakTesting.settings
         .withIgnoredAll(), // The test leaks by design, see [_TestImageStreamCompleter].
     (WidgetTester tester) async {
-      final ui.Codec codec = (await tester.runAsync(() {
+      final ui.Codec codec = await tester.runAsync(() {
         return ui.instantiateImageCodec(Uint8List.fromList(kAnimatedGif));
-      }))!;
+      });
 
       Future<ui.Image> nextFrame() async {
-        final ui.FrameInfo frameInfo = (await tester.runAsync(codec.getNextFrame))!;
+        final ui.FrameInfo frameInfo = await tester.runAsync(codec.getNextFrame);
         return frameInfo.image;
       }
 
@@ -1499,12 +1499,12 @@ void main() {
       experimentalLeakTesting: LeakTesting.settings
           .withIgnoredAll(), // The test leaks by design, see [_TestImageStreamCompleter].
       (WidgetTester tester) async {
-        final ui.Codec codec = (await tester.runAsync(() {
+        final ui.Codec codec = await tester.runAsync(() {
           return ui.instantiateImageCodec(Uint8List.fromList(kAnimatedGif));
-        }))!;
+        });
 
         Future<ui.Image> nextFrame() async {
-          final ui.FrameInfo frameInfo = (await tester.runAsync(codec.getNextFrame))!;
+          final ui.FrameInfo frameInfo = await tester.runAsync(codec.getNextFrame);
           return frameInfo.image;
         }
 
@@ -1670,12 +1670,12 @@ void main() {
       experimentalLeakTesting: LeakTesting.settings
           .withIgnoredAll(), // The test leaks by design, see [_TestImageStreamCompleter].
       (WidgetTester tester) async {
-        final ui.Codec codec = (await tester.runAsync(() {
+        final ui.Codec codec = await tester.runAsync(() {
           return ui.instantiateImageCodec(Uint8List.fromList(kAnimatedGif));
-        }))!;
+        });
 
         Future<ui.Image> nextFrame() async {
-          final ui.FrameInfo frameInfo = (await tester.runAsync(codec.getNextFrame))!;
+          final ui.FrameInfo frameInfo = await tester.runAsync(codec.getNextFrame);
           return frameInfo.image;
         }
 
@@ -1840,13 +1840,13 @@ void main() {
     testWidgets('image source swapping and image disposal with $disableMethod', (
       WidgetTester tester,
     ) async {
-      final ui.Image image1 = (await tester.runAsync(() => createTestImage(cache: false)))!;
+      final ui.Image image1 = await tester.runAsync(() => createTestImage(cache: false));
       final imageProvider1 = _TestImageProvider(
         streamCompleter: OneFrameImageStreamCompleter(
           Future<ImageInfo>.value(ImageInfo(image: image1, debugLabel: '_TestImage1')),
         ),
       );
-      final ui.Image image2 = (await tester.runAsync(() => createTestImage(cache: false)))!;
+      final ui.Image image2 = await tester.runAsync(() => createTestImage(cache: false));
       final imageProvider2 = _TestImageProvider(
         streamCompleter: OneFrameImageStreamCompleter(
           Future<ImageInfo>.value(ImageInfo(image: image2, debugLabel: '_TestImage2')),
@@ -1944,12 +1944,12 @@ void main() {
     experimentalLeakTesting: LeakTesting.settings
         .withIgnoredAll(), // The test leaks by design, see [_TestImageStreamCompleter].
     (WidgetTester tester) async {
-      final ui.Codec codec = (await tester.runAsync(() {
+      final ui.Codec codec = await tester.runAsync(() {
         return ui.instantiateImageCodec(Uint8List.fromList(kAnimatedGif));
-      }))!;
+      });
 
       Future<ui.Image> nextFrame() async {
-        final ui.FrameInfo frameInfo = (await tester.runAsync(codec.getNextFrame))!;
+        final ui.FrameInfo frameInfo = await tester.runAsync(codec.getNextFrame);
         return frameInfo.image;
       }
 
@@ -2014,12 +2014,12 @@ void main() {
     experimentalLeakTesting: LeakTesting.settings
         .withIgnoredAll(), // The test leaks by design, see [_TestImageStreamCompleter].
     (WidgetTester tester) async {
-      final ui.Codec codec = (await tester.runAsync(() {
+      final ui.Codec codec = await tester.runAsync(() {
         return ui.instantiateImageCodec(Uint8List.fromList(kAnimatedGif));
-      }))!;
+      });
 
       Future<ui.Image> nextFrame() async {
-        final ui.FrameInfo frameInfo = (await tester.runAsync(codec.getNextFrame))!;
+        final ui.FrameInfo frameInfo = await tester.runAsync(codec.getNextFrame);
         return frameInfo.image;
       }
 
@@ -2442,9 +2442,9 @@ void main() {
     expect(imageCache.liveImageCount, 1);
     expect(imageCache.containsKey(provider), false);
 
-    final ImageCacheStatus providerLocation = (await provider.obtainCacheStatus(
+    final ImageCacheStatus providerLocation = await provider.obtainCacheStatus(
       configuration: ImageConfiguration.empty,
-    ))!;
+    );
 
     expect(providerLocation, isNotNull);
     expect(providerLocation.live, true);
@@ -2728,9 +2728,9 @@ void main() {
         imageSizeInfo = info;
       };
 
-      final ui.Image image = (await tester.runAsync(
+      final ui.Image image = await tester.runAsync(
         () => createTestImage(width: 100, height: 100),
-      ))!;
+      );
       final streamCompleter = _TestImageStreamCompleter(
         ImageInfo(image: image, debugLabel: 'test.png'),
       );
@@ -2757,7 +2757,7 @@ void main() {
   );
 
   testWidgets('Disposes image handle when disposed', (WidgetTester tester) async {
-    final ui.Image image = (await tester.runAsync(() => createTestImage(cache: false)))!;
+    final ui.Image image = await tester.runAsync(() => createTestImage(cache: false));
 
     expect(image.debugGetOpenHandleStackTraces()!.length, 1);
 
@@ -2793,7 +2793,7 @@ void main() {
 
   testWidgets('Keeps stream alive when ticker mode is disabled', (WidgetTester tester) async {
     imageCache.maximumSize = 0;
-    final ui.Image image = (await tester.runAsync(() => createTestImage(cache: false)))!;
+    final ui.Image image = await tester.runAsync(() => createTestImage(cache: false));
     final provider = _TestImageProvider();
     provider.complete(image);
 
@@ -2809,7 +2809,7 @@ void main() {
 
   testWidgets('Keeps stream alive when animations are disabled', (WidgetTester tester) async {
     imageCache.maximumSize = 0;
-    final ui.Image image = (await tester.runAsync(() => createTestImage(cache: false)))!;
+    final ui.Image image = await tester.runAsync(() => createTestImage(cache: false));
     final provider = _TestImageProvider();
     provider.complete(image);
 
@@ -2847,7 +2847,7 @@ void main() {
         .withIgnoredAll(), // The test leaks by design, see [_TestImageStreamCompleter].
     (WidgetTester tester) async {
       final errorKey = UniqueKey();
-      final ui.Image image = (await tester.runAsync(() => createTestImage()))!;
+      final ui.Image image = await tester.runAsync(() => createTestImage());
       final streamCompleter = _TestImageStreamCompleter();
       final imageProvider = _TestImageProvider(streamCompleter: streamCompleter);
 
@@ -2949,12 +2949,12 @@ void main() {
     experimentalLeakTesting: LeakTesting.settings
         .withIgnoredAll(), // The test leaks by design, see [_TestImageStreamCompleter].
     (WidgetTester tester) async {
-      final ui.Codec codec = (await tester.runAsync(() {
+      final ui.Codec codec = await tester.runAsync(() {
         return ui.instantiateImageCodec(Uint8List.fromList(kAnimatedGif));
-      }))!;
+      });
 
       Future<ui.Image> nextFrame() async {
-        final ui.FrameInfo frameInfo = (await tester.runAsync(codec.getNextFrame))!;
+        final ui.FrameInfo frameInfo = await tester.runAsync(codec.getNextFrame);
         return frameInfo.image;
       }
 

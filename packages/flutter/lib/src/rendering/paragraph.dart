@@ -167,7 +167,7 @@ mixin RenderInlineChildrenContainerDefaults
               ui.PlaceholderAlignment.baseline => getBaseline(
                 child,
                 childConstraints,
-                span.baseline!,
+                span.baseline,
               ),
             },
           );
@@ -338,7 +338,7 @@ class RenderParagraph extends RenderBox
     InlineSpan text, {
     TextAlign textAlign = TextAlign.start,
     required TextDirection textDirection,
-    bool softWrap = true,
+    this._softWrap = true,
     TextOverflow overflow = TextOverflow.clip,
     @Deprecated(
       'Use textScaler instead. '
@@ -353,19 +353,16 @@ class RenderParagraph extends RenderBox
     TextWidthBasis textWidthBasis = TextWidthBasis.parent,
     ui.TextHeightBehavior? textHeightBehavior,
     List<RenderBox>? children,
-    Color? selectionColor,
+    this._selectionColor,
     SelectionRegistrar? registrar,
-    double devicePixelRatio = 1.0,
+    this._devicePixelRatio = 1.0,
   }) : assert(text.debugAssertIsValid()),
        assert(maxLines == null || maxLines > 0),
        assert(
          identical(textScaler, const _UnspecifiedTextScaler()) || textScaleFactor == 1.0,
          'textScaleFactor is deprecated and cannot be specified when textScaler is specified.',
        ),
-       _softWrap = softWrap,
        _overflow = overflow,
-       _devicePixelRatio = devicePixelRatio,
-       _selectionColor = selectionColor,
        _textPainter = TextPainter(
          text: text,
          textAlign: textAlign,
@@ -1460,7 +1457,7 @@ class RenderParagraph extends RenderBox
 
   VoidCallback? _createShowOnScreenFor(Key key) {
     return () {
-      final SemanticsNode node = _cachedChildNodes![key]!;
+      final SemanticsNode node = _cachedChildNodes![key];
       showOnScreen(descendant: this, rect: node.rect);
     };
   }
@@ -1555,11 +1552,11 @@ class _SelectableFragment
     final int selectionEnd = _textSelectionEnd!.offset;
     final bool isReversed = selectionStart > selectionEnd;
     final Offset startOffsetInParagraphCoordinates = paragraph._getOffsetForPosition(
-      _textSelectionStart!,
+      _textSelectionStart,
     );
     final Offset endOffsetInParagraphCoordinates = selectionStart == selectionEnd
         ? startOffsetInParagraphCoordinates
-        : paragraph._getOffsetForPosition(_textSelectionEnd!);
+        : paragraph._getOffsetForPosition(_textSelectionEnd);
     final flipHandles = isReversed != (TextDirection.rtl == paragraph.textDirection);
     final selection = TextSelection(baseOffset: selectionStart, extentOffset: selectionEnd);
     final selectionRects = <Rect>[];
@@ -3510,7 +3507,7 @@ class _SelectableFragment
     // Normalize current selection.
     late TextPosition currentStart;
     late TextPosition currentEnd;
-    if (_compareTextPositions(_textSelectionStart!, _textSelectionEnd!) > 0) {
+    if (_compareTextPositions(_textSelectionStart, _textSelectionEnd) > 0) {
       currentStart = _textSelectionStart!;
       currentEnd = _textSelectionEnd!;
     } else {
@@ -3633,7 +3630,7 @@ class _SelectableFragment
       );
       final selectionPaint = Paint()
         ..style = PaintingStyle.fill
-        ..color = paragraph.selectionColor!;
+        ..color = paragraph.selectionColor;
       for (final TextBox textBox in paragraph.getBoxesForSelection(selection)) {
         context.canvas.drawRect(textBox.toRect().shift(offset), selectionPaint);
       }

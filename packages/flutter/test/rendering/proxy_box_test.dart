@@ -194,7 +194,7 @@ void main() {
     image = await boundary.toImage();
     expect(image.width, equals(20));
     expect(image.height, equals(20));
-    ByteData data = (await image.toByteData())!;
+    ByteData data = await image.toByteData();
 
     int getPixel(int x, int y) => data.getUint32((x + y * image.width) * 4);
 
@@ -285,7 +285,7 @@ void main() {
     image = boundary.toImageSync();
     expect(image.width, equals(20));
     expect(image.height, equals(20));
-    ByteData data = (await image.toByteData())!;
+    ByteData data = await image.toByteData();
 
     int getPixel(int x, int y) => data.getUint32((x + y * image.width) * 4);
 
@@ -1184,7 +1184,7 @@ class RenderFancyProxyBox extends RenderFancyBox
 
 void expectAssertionError() {
   final FlutterErrorDetails errorDetails = TestRenderingFlutterBinding.instance
-      .takeFlutterErrorDetails()!;
+      .takeFlutterErrorDetails();
   final bool asserted = errorDetails.toString().contains('Failed assertion');
   if (!asserted) {
     FlutterError.reportError(errorDetails);

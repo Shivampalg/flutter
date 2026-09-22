@@ -734,7 +734,7 @@ void main() {
     'Activates the text field when receives semantics focus on desktops',
     (WidgetTester tester) async {
       final semantics = SemanticsTester(tester);
-      final SemanticsOwner semanticsOwner = tester.binding.pipelineOwner.semanticsOwner!;
+      final SemanticsOwner semanticsOwner = tester.binding.pipelineOwner.semanticsOwner;
       final FocusNode focusNode = _focusNode();
       await tester.pumpWidget(
         MaterialApp(
@@ -4678,12 +4678,12 @@ void main() {
       // Toolbar should fade in. Starting at 0% opacity.
       expect(find.text('Select all'), findsOneWidget);
       final Element target = tester.element(find.text('Select all'));
-      final FadeTransition opacity = target.findAncestorWidgetOfExactType<FadeTransition>()!;
+      final FadeTransition opacity = target.findAncestorWidgetOfExactType<FadeTransition>();
       expect(opacity.opacity.value, equals(0.0));
 
       // Still fading in.
       await tester.pump(const Duration(milliseconds: 50));
-      final FadeTransition opacity2 = target.findAncestorWidgetOfExactType<FadeTransition>()!;
+      final FadeTransition opacity2 = target.findAncestorWidgetOfExactType<FadeTransition>();
       expect(opacity, same(opacity2));
       expect(opacity.opacity.value, greaterThan(0.0));
       expect(opacity.opacity.value, lessThan(1.0));
@@ -8896,7 +8896,7 @@ void main() {
 
   testWidgets('TextField change selection with semantics', (WidgetTester tester) async {
     final semantics = SemanticsTester(tester);
-    final SemanticsOwner semanticsOwner = tester.binding.pipelineOwner.semanticsOwner!;
+    final SemanticsOwner semanticsOwner = tester.binding.pipelineOwner.semanticsOwner;
     final TextEditingController controller = _textEditingController()..text = 'Hello';
     final Key key = UniqueKey();
 
@@ -9034,7 +9034,7 @@ void main() {
     const textInTextField = 'Hello';
 
     final semantics = SemanticsTester(tester);
-    final SemanticsOwner semanticsOwner = tester.binding.pipelineOwner.semanticsOwner!;
+    final SemanticsOwner semanticsOwner = tester.binding.pipelineOwner.semanticsOwner;
     final TextEditingController controller = _textEditingController()..text = textInTextField;
     final Key key = UniqueKey();
 
@@ -9131,7 +9131,7 @@ void main() {
     const textInTextField = 'Hello';
 
     final semantics = SemanticsTester(tester);
-    final SemanticsOwner semanticsOwner = tester.binding.pipelineOwner.semanticsOwner!;
+    final SemanticsOwner semanticsOwner = tester.binding.pipelineOwner.semanticsOwner;
     final TextEditingController controller = _textEditingController()..text = textInTextField;
     final Key key = UniqueKey();
 
@@ -16072,7 +16072,7 @@ void main() {
       ),
     );
 
-    expect(tester.layers.any((Layer layer) => layer.debugSubtreeNeedsAddToScene!), isFalse);
+    expect(tester.layers.any((Layer layer) => layer.debugSubtreeNeedsAddToScene), isFalse);
   });
 
   testWidgets('Focused TextField does not push any layers with alwaysNeedsAddToScene', (
@@ -16089,7 +16089,7 @@ void main() {
     await tester.showKeyboard(find.byType(TextField));
 
     expect(focusNode.hasFocus, isTrue);
-    expect(tester.layers.any((Layer layer) => layer.debugSubtreeNeedsAddToScene!), isFalse);
+    expect(tester.layers.any((Layer layer) => layer.debugSubtreeNeedsAddToScene), isFalse);
   });
 
   testWidgets(
@@ -16123,7 +16123,7 @@ void main() {
       await tester.pump(const Duration(seconds: 1));
       expect(find.text('Copy'), findsNothing); // Toolbar is not visible
 
-      expect(tester.layers.any((Layer layer) => layer.debugSubtreeNeedsAddToScene!), isFalse);
+      expect(tester.layers.any((Layer layer) => layer.debugSubtreeNeedsAddToScene), isFalse);
     },
     // [intended] only applies to platforms where we supply the context menu.
     skip: isContextMenuProvidedByPlatform,
@@ -18775,7 +18775,7 @@ void main() {
     WidgetTester tester,
   ) async {
     final semantics = SemanticsTester(tester);
-    final SemanticsOwner semanticsOwner = tester.binding.pipelineOwner.semanticsOwner!;
+    final SemanticsOwner semanticsOwner = tester.binding.pipelineOwner.semanticsOwner;
     final focusNode = FocusNode();
     addTearDown(focusNode.dispose);
     await tester.pumpWidget(
@@ -18847,7 +18847,7 @@ void main() {
     'when disabled does not listen to onFocus events or gain focus',
     (WidgetTester tester) async {
       final semantics = SemanticsTester(tester);
-      final SemanticsOwner semanticsOwner = tester.binding.pipelineOwner.semanticsOwner!;
+      final SemanticsOwner semanticsOwner = tester.binding.pipelineOwner.semanticsOwner;
       final focusNode = FocusNode();
       addTearDown(focusNode.dispose);
       await tester.pumpWidget(
@@ -18920,7 +18920,7 @@ void main() {
     'when receives SemanticsAction.focus while already focused, shows keyboard',
     (WidgetTester tester) async {
       final semantics = SemanticsTester(tester);
-      final SemanticsOwner semanticsOwner = tester.binding.pipelineOwner.semanticsOwner!;
+      final SemanticsOwner semanticsOwner = tester.binding.pipelineOwner.semanticsOwner;
       final focusNode = FocusNode();
       addTearDown(focusNode.dispose);
       await tester.pumpWidget(
@@ -18949,7 +18949,7 @@ void main() {
     'when receives SemanticsAction.focus while focused but read-only, does not show keyboard',
     (WidgetTester tester) async {
       final semantics = SemanticsTester(tester);
-      final SemanticsOwner semanticsOwner = tester.binding.pipelineOwner.semanticsOwner!;
+      final SemanticsOwner semanticsOwner = tester.binding.pipelineOwner.semanticsOwner;
       final focusNode = FocusNode();
       addTearDown(focusNode.dispose);
       await tester.pumpWidget(

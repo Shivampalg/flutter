@@ -109,7 +109,7 @@ abstract class RenderSliverEdgeInsetsPadding extends RenderSliver
         calculateCacheOffset(constraints, from: from, to: to);
 
     assert(this.resolvedPadding != null);
-    final EdgeInsets resolvedPadding = this.resolvedPadding!;
+    final EdgeInsets resolvedPadding = this.resolvedPadding;
     final double beforePadding = this.beforePadding;
     final double afterPadding = this.afterPadding;
     final double mainAxisPadding = this.mainAxisPadding;
@@ -308,11 +308,10 @@ class RenderSliverPadding extends RenderSliverEdgeInsetsPadding {
   /// The [padding] argument must have non-negative insets.
   RenderSliverPadding({
     required EdgeInsetsGeometry padding,
-    TextDirection? textDirection,
+    this._textDirection,
     RenderSliver? child,
   }) : assert(padding.isNonNegative),
-       _padding = padding,
-       _textDirection = textDirection {
+       _padding = padding {
     this.child = child;
   }
 

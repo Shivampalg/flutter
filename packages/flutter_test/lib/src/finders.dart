@@ -1219,7 +1219,7 @@ abstract class Finder extends FinderBase<Element> with _LegacyFinderMixin {
 
   @override
   Iterable<Element> get allCandidates {
-    return collectAllElementsFrom(WidgetsBinding.instance.rootElement!, skipOffstage: skipOffstage);
+    return collectAllElementsFrom(WidgetsBinding.instance.rootElement, skipOffstage: skipOffstage);
   }
 
   @override
@@ -1258,7 +1258,7 @@ abstract class SemanticsFinder extends FinderBase<SemanticsNode> {
     final RenderView renderView = TestWidgetsFlutterBinding.instance.renderViews.firstWhere(
       (RenderView r) => r.flutterView == view,
     );
-    return <SemanticsNode>[renderView.owner!.semanticsOwner!.rootSemanticsNode!];
+    return <SemanticsNode>[renderView.owner!.semanticsOwner!.rootSemanticsNode];
   }
 
   @override
@@ -1298,7 +1298,7 @@ class _StaticTextRangeFinder extends FinderBase<TextRangeContext> {
       return const Iterable<TextRangeContext>.empty();
     }
 
-    final View view = from.findAncestorWidgetOfExactType<View>()!;
+    final View view = from.findAncestorWidgetOfExactType<View>();
     final paragraphs = <RenderParagraph>[];
 
     void visitor(RenderObject child) {
@@ -1707,8 +1707,7 @@ class _ExactWidgetFinder extends MatchFinder {
 }
 
 class _WidgetPredicateWidgetFinder extends MatchFinder {
-  _WidgetPredicateWidgetFinder(this.predicate, {String? description, super.skipOffstage})
-    : _description = description;
+  _WidgetPredicateWidgetFinder(this.predicate, {super.skipOffstage}) : _description = null;
 
   final WidgetPredicate predicate;
   final String? _description;
@@ -1723,8 +1722,7 @@ class _WidgetPredicateWidgetFinder extends MatchFinder {
 }
 
 class _ElementPredicateWidgetFinder extends MatchFinder {
-  _ElementPredicateWidgetFinder(this.predicate, {String? description, super.skipOffstage})
-    : _description = description;
+  _ElementPredicateWidgetFinder(this.predicate, {super.skipOffstage}) : _description = null;
 
   final ElementPredicate predicate;
   final String? _description;
@@ -1908,7 +1906,7 @@ class _AncestorSemanticsFinder extends FinderBase<SemanticsNode>
   Iterable<SemanticsNode> _collectAncestors(SemanticsNode child) {
     final ancestors = <SemanticsNode>[];
     while (child.parent != null) {
-      ancestors.add(child.parent!);
+      ancestors.add(child.parent);
       child = child.parent!;
     }
     return ancestors;

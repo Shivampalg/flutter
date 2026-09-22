@@ -20,7 +20,7 @@ void main() {
     expect(actual, ideal);
 
     if (visible != null) {
-      final SliverGeometry geometry = target.geometry!;
+      final SliverGeometry geometry = target.geometry;
       expect(geometry.visible, visible);
     }
   }
@@ -503,7 +503,7 @@ void main() {
     );
     await tester.pumpAndSettle(const Duration(milliseconds: 10));
 
-    final RenderObject renderObject = key.currentContext!.findRenderObject()!;
+    final RenderObject renderObject = key.currentContext!.findRenderObject();
     // The delegate must only start throwing immediately before calling
     // toStringDeep to avoid triggering spurious exceptions.
     // If the _RenderSliverPinnedPersistentHeaderForWidgets class was not

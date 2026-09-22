@@ -62,8 +62,8 @@ abstract class FlowPaintingContext {
 ///  * [Flow]
 ///  * [RenderFlow]
 abstract class FlowDelegate {
-  /// The flow will repaint whenever [repaint] notifies its listeners.
-  const FlowDelegate({Listenable? repaint}) : _repaint = repaint;
+  /// The flow will repaint whenever [_repaint] notifies its listeners.
+  const FlowDelegate({this._repaint});
 
   final Listenable? _repaint;
 
@@ -187,10 +187,9 @@ class RenderFlow extends RenderBox
   /// [isRepaintBoundary].
   RenderFlow({
     List<RenderBox>? children,
-    required FlowDelegate delegate,
-    Clip clipBehavior = Clip.hardEdge,
-  }) : _delegate = delegate,
-       _clipBehavior = clipBehavior {
+    required this._delegate,
+    this._clipBehavior = Clip.hardEdge,
+  }) {
     addAll(children);
   }
 
@@ -377,13 +376,13 @@ class RenderFlow extends RenderBox
     }
 
     if (opacity == 1.0) {
-      _paintingContext!.pushTransform(needsCompositing, _paintingOffset!, transform, painter);
+      _paintingContext!.pushTransform(needsCompositing, _paintingOffset, transform, painter);
     } else {
-      _paintingContext!.pushOpacity(_paintingOffset!, ui.Color.getAlphaFromOpacity(opacity), (
+      _paintingContext!.pushOpacity(_paintingOffset, ui.Color.getAlphaFromOpacity(opacity), (
         PaintingContext context,
         Offset offset,
       ) {
-        context.pushTransform(needsCompositing, offset, transform!, painter);
+        context.pushTransform(needsCompositing, offset, transform, painter);
       });
     }
   }

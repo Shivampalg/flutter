@@ -280,7 +280,7 @@ class RenderEditable extends RenderBox
   /// the number of lines. By default, it is 1, meaning this is a single-line
   /// text field. If it is not null, it must be greater than zero.
   ///
-  /// Use [ViewportOffset.zero] for the [offset] if there is no need for
+  /// Use [ViewportOffset.zero] for the [_offset] if there is no need for
   /// scrolling.
   RenderEditable({
     InlineSpan? text,
@@ -290,8 +290,8 @@ class RenderEditable extends RenderBox
     Color? backgroundCursorColor,
     ValueNotifier<bool>? showCursor,
     bool? hasFocus,
-    required LayerLink startHandleLayerLink,
-    required LayerLink endHandleLayerLink,
+    required this._startHandleLayerLink,
+    required this._endHandleLayerLink,
     int? maxLines = 1,
     int? minLines,
     bool expands = false,
@@ -305,28 +305,28 @@ class RenderEditable extends RenderBox
     double textScaleFactor = 1.0,
     TextScaler textScaler = TextScaler.noScaling,
     TextSelection? selection,
-    required ViewportOffset offset,
+    required this._offset,
     this.ignorePointer = false,
-    bool readOnly = false,
-    bool forceLine = true,
+    this._readOnly = false,
+    this._forceLine = true,
     TextHeightBehavior? textHeightBehavior,
     TextWidthBasis textWidthBasis = TextWidthBasis.parent,
     String obscuringCharacter = '•',
-    bool obscureText = false,
+    this._obscureText = false,
     Locale? locale,
     double cursorWidth = 1.0,
     double? cursorHeight,
     Radius? cursorRadius,
     bool paintCursorAboveText = false,
     Offset cursorOffset = Offset.zero,
-    double devicePixelRatio = 1.0,
+    this._devicePixelRatio = 1.0,
     ui.BoxHeightStyle selectionHeightStyle = ui.BoxHeightStyle.max,
     ui.BoxWidthStyle selectionWidthStyle = ui.BoxWidthStyle.max,
-    bool? enableInteractiveSelection,
+    this._enableInteractiveSelection,
     this.floatingCursorAddedMargin = const EdgeInsets.fromLTRB(4, 4, 4, 5),
     TextRange? promptRectRange,
     Color? promptRectColor,
-    Clip clipBehavior = Clip.hardEdge,
+    this._clipBehavior = Clip.hardEdge,
     required this.textSelectionDelegate,
     RenderEditablePainter? painter,
     RenderEditablePainter? foregroundPainter,
@@ -366,19 +366,10 @@ class RenderEditable extends RenderBox
        _minLines = minLines,
        _expands = expands,
        _selection = selection,
-       _offset = offset,
        _cursorWidth = cursorWidth,
        _cursorHeight = cursorHeight,
        _paintCursorOnTop = paintCursorAboveText,
-       _enableInteractiveSelection = enableInteractiveSelection,
-       _devicePixelRatio = devicePixelRatio,
-       _startHandleLayerLink = startHandleLayerLink,
-       _endHandleLayerLink = endHandleLayerLink,
        _obscuringCharacter = obscuringCharacter,
-       _obscureText = obscureText,
-       _readOnly = readOnly,
-       _forceLine = forceLine,
-       _clipBehavior = clipBehavior,
        _hasFocus = hasFocus ?? false,
        _disposeShowCursor = showCursor == null {
     assert(!_showCursor.value || cursorColor != null);
@@ -1371,7 +1362,7 @@ class RenderEditable extends RenderBox
       }
     }
     config
-      ..attributedValue = _cachedAttributedValue!
+      ..attributedValue = _cachedAttributedValue
       ..isObscured = obscureText
       ..isMultiline = _isMultiline
       ..textDirection = textDirection
@@ -1527,7 +1518,7 @@ class RenderEditable extends RenderBox
 
   VoidCallback? _createShowOnScreenFor(Key key) {
     return () {
-      final SemanticsNode node = _cachedChildNodes![key]!;
+      final SemanticsNode node = _cachedChildNodes![key];
       showOnScreen(descendant: this, rect: node.rect);
     };
   }
@@ -2109,7 +2100,7 @@ class RenderEditable extends RenderBox
   /// programmatically manipulate its `value` or `selection` directly.
   /// {@endtemplate}
   void selectPosition({required SelectionChangedCause cause}) {
-    selectPositionAt(from: _lastTapDownPosition!, cause: cause);
+    selectPositionAt(from: _lastTapDownPosition, cause: cause);
   }
 
   /// Select text between the global positions [from] and [to].
@@ -2144,7 +2135,7 @@ class RenderEditable extends RenderBox
   ///
   /// {@macro flutter.rendering.RenderEditable.selectPosition}
   void selectWord({required SelectionChangedCause cause}) {
-    selectWordsInRange(from: _lastTapDownPosition!, cause: cause);
+    selectWordsInRange(from: _lastTapDownPosition, cause: cause);
   }
 
   /// Selects the set words of a paragraph that intersect a given range of global positions.
@@ -2190,7 +2181,7 @@ class RenderEditable extends RenderBox
     _computeTextMetricsIfNeeded();
     assert(_lastTapDownPosition != null);
     final TextPosition position = _textPainter.getPositionForOffset(
-      globalToLocal(_lastTapDownPosition!) - _paintOffset,
+      globalToLocal(_lastTapDownPosition) - _paintOffset,
     );
     final TextRange word = _textPainter.getWordBoundary(position);
     late TextSelection newSelection;
@@ -2740,7 +2731,7 @@ class RenderEditable extends RenderBox
 }
 
 class _RenderEditableCustomPaint extends RenderBox {
-  _RenderEditableCustomPaint({RenderEditablePainter? painter}) : _painter = painter, super();
+  _RenderEditableCustomPaint() : _painter = null, super();
 
   @override
   RenderEditable? get parent => super.parent as RenderEditable?;
@@ -2850,9 +2841,8 @@ abstract class RenderEditablePainter extends ChangeNotifier {
 }
 
 class _TextHighlightPainter extends RenderEditablePainter {
-  _TextHighlightPainter({TextRange? highlightedRange, Color? highlightColor})
-    : _highlightedRange = highlightedRange,
-      _highlightColor = highlightColor;
+  _TextHighlightPainter({Color? highlightColor})
+    : _highlightedRange = null, _highlightColor = highlightColor;
 
   final Paint highlightPaint = Paint();
 

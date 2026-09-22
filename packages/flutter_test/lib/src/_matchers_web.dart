@@ -64,7 +64,7 @@ class MatchesGoldenFile extends AsyncMatcher {
     final TestWidgetsFlutterBinding binding = TestWidgetsFlutterBinding.instance;
     return binding.runAsync<String?>(() async {
       assert(element.renderObject != null);
-      RenderObject renderObject = element.renderObject!;
+      RenderObject renderObject = element.renderObject;
       while (!renderObject.isRepaintBoundary) {
         renderObject = renderObject.parent!;
       }

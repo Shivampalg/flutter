@@ -43,7 +43,7 @@ class _PopupButtonState extends State<PopupButton> {
       });
     } else {
       // Popup is not shown, show it.
-      final tracker = ElementPositionTracker(element: _popupButtonKey.currentContext!);
+      final tracker = ElementPositionTracker(element: _popupButtonKey.currentContext);
       late final WindowEntry entry;
       final controller = PopupWindowController(
         anchorRect: tracker.getGlobalRect()!,

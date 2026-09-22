@@ -184,8 +184,8 @@ class _GlowingOverscrollIndicatorState extends State<GlowingOverscrollIndicator>
     _leadingController = _GlowController(vsync: this, color: widget.color, axis: widget.axis);
     _trailingController = _GlowController(vsync: this, color: widget.color, axis: widget.axis);
     _leadingAndTrailingListener = Listenable.merge(<Listenable>[
-      _leadingController!,
-      _trailingController!,
+      _leadingController,
+      _trailingController,
     ]);
   }
 
@@ -325,9 +325,7 @@ class _GlowingOverscrollIndicatorState extends State<GlowingOverscrollIndicator>
 enum _GlowState { idle, absorb, pull, recede }
 
 class _GlowController extends ChangeNotifier {
-  _GlowController({required TickerProvider vsync, required Color color, required Axis axis})
-    : _color = color,
-      _axis = axis {
+  _GlowController({required TickerProvider vsync, required this._color, required this._axis}) {
     if (kFlutterMemoryAllocationsEnabled) {
       ChangeNotifier.maybeDispatchObjectCreation(this);
     }
